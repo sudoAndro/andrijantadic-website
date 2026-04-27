@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Andrijan Tadic – technischer Quereinsteiger mit Leidenschaft für IT, Homelab, Linux, Netzwerke und Infrastruktur." />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Andrijan Tadic | IT-Quereinsteiger</title>
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: rgba(15, 23, 42, 0.72);
+      --panel-solid: #0f172a;
+      --panel-2: #111c31;
+      --line: rgba(148, 163, 184, 0.18);
+      --text: #e5eefc;
+      --muted: #9fb0c8;
+      --accent: #60a5fa;
+      --accent-2: #22c55e;
+      --white: #ffffff;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.10), transparent 24%),
+        linear-gradient(180deg, #07101b 0%, #0b1324 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 17, 31, 0.68);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      color: var(--white);
+      font-size: 0.96rem;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .cta-small {
+      padding: 0.85rem 1.15rem;
+      border-radius: 999px;
+      background: rgba(96, 165, 250, 0.12);
+      color: var(--white);
+      border: 1px solid rgba(96, 165, 250, 0.25);
+    }
+
+    .hero {
+      padding: 5.6rem 0 4.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      background: rgba(96, 165, 250, 0.08);
+      color: #cfe3ff;
+      font-size: 0.92rem;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.6rem);
+      line-height: 1.05;
+      margin: 0 0 1rem;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy p {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 64ch;
+      margin: 0 0 1.6rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 50px;
+      padding: 0 1.25rem;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: 180ms ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      color: var(--white);
+      box-shadow: 0 16px 34px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    .btn-secondary {
+      border-color: rgba(148, 163, 184, 0.22);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--white);
+    }
+
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      max-width: 760px;
+    }
+
+    .fact {
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.56);
+      border: 1px solid var(--line);
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .fact span { color: var(--muted); font-size: 0.94rem; }
+
+    .profile-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(17, 28, 49, 0.92), rgba(10, 18, 31, 0.92));
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -20%;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.22), transparent 65%);
+      pointer-events: none;
+    }
+
+    .profile-photo {
+      aspect-ratio: 4 / 5;
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(148, 163, 184, 0.18), rgba(148, 163, 184, 0.05));
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+	  object-position: center 20%;
+    }
+
+    .profile-note {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .mini-card {
+      padding: 0.95rem 1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .mini-card span { color: var(--muted); font-size: 0.92rem; }
+
+    main section {
+      padding: 1.4rem 0 3.2rem;
+    }
+
+    .section-head {
+      margin-bottom: 1.4rem;
+      max-width: 760px;
+    }
+
+    .section-head .label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.76rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+      line-height: 1.12;
+      margin: 0 0 0.8rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .about-grid,
+    .motivation-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.2rem;
+    }
+
+    .about-text p,
+    .motivation-text p,
+    .contact-copy p {
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 0.9rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      padding: 1rem 1rem 1rem 1.1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.11);
+      color: var(--muted);
+    }
+
+    .bullet-list strong { color: var(--white); }
+
+    .timeline {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1.2rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.11);
+    }
+
+    .timeline-year {
+      color: #cfe3ff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+    }
+
+    .timeline-content h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1.15rem;
+    }
+
+    .timeline-content .meta {
+      color: #c0d2ea;
+      font-size: 0.94rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .timeline-content p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-card {
+      padding: 1.25rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.11);
+    }
+
+    .skill-card h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.08rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .tag {
+      padding: 0.48rem 0.72rem;
+      border-radius: 999px;
+      background: rgba(96, 165, 250, 0.10);
+      border: 1px solid rgba(96, 165, 250, 0.18);
+      color: #d7e8ff;
+      font-size: 0.88rem;
+    }
+
+    .strengths {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .strength {
+      padding: 1rem;
+      border-radius: 18px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.11);
+      font-weight: 600;
+      color: #dbe9fb;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.11);
+    }
+
+    .contact-item span { color: var(--muted); }
+
+    footer {
+      padding: 1rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-card {
+      padding: 1.1rem 1.2rem;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.11);
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      background: rgba(255,255,255,0.04);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 0.7rem 0.9rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .motivation-grid,
+      .contact-grid,
+      .skills-grid,
+      .strengths {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { padding-top: 3.8rem; }
+      .hero-facts { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .profile-card { max-width: 560px; margin: 0 auto; }
+      .profile-note { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .nav { min-height: 68px; }
+      .mobile-menu-btn { display: inline-flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 74px;
+        left: 1rem;
+        right: 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+        border-radius: 18px;
+        background: rgba(8, 17, 31, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+      }
+      .nav-links.open { display: flex; }
+      .cta-small { text-align: center; }
+      .profile-note { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn-primary:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#start" aria-label="Startseite">
+        <span class="brand-mark">AT</span>
+        <span>Andrijan Tadic</span>
+      </a>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="navLinks">
+        Menü
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#ueber-mich">Über mich</a>
+        <a href="#berufsweg">Berufsweg</a>
+        <a href="#it-kompetenzen">IT-Kompetenzen</a>
+        <a href="#motivation">Motivation</a>
+        <a href="#kontakt" class="cta-small">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="start">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">IT-Quereinsteiger aus der Schweiz</div>
+        <h1>Technischer Quereinsteiger mit echter Leidenschaft für IT.</h1>
+        <p>
+          Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und vielen Jahren in der CNC-Fertigung habe ich mich bewusst entschieden, mein langjähriges Hobby zum Beruf zu machen. Heute bringe ich technische Praxiserfahrung, Verantwortungsbewusstsein und echtes Interesse an Linux, Netzwerken, Servern und Infrastruktur in meinen Weg in die IT ein.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#kontakt">Kontakt aufnehmen</a>
+          <a class="btn btn-secondary" href="./Lebenslauf-Andrijan-Tadic.pdf" target="_blank" rel="noopener">Lebenslauf ansehen</a>
+        </div>
+
+        <div class="hero-facts" aria-label="Kurzüberblick">
+          <div class="fact">
+            <strong>20+ Jahre</strong>
+            <span>technische Berufserfahrung mit Verantwortung und Präzision</span>
+          </div>
+          <div class="fact">
+            <strong>Homelab & IT</strong>
+            <span>Linux, Proxmox, Netzwerke, Security und Self-Hosting</span>
+          </div>
+          <div class="fact">
+            <strong>Klare Richtung</strong>
+            <span>bewusster und langfristiger Einstieg in die IT-Branche</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="profile-card" aria-label="Profilbild und Kurzinfos">
+        <div class="profile-photo">
+          <!-- Bilddatei im gleichen Ordner ablegen, z. B. profile-photo.jpg -->
+          <img src="./profile-photo.jpg" alt="Portrait von Andrijan Tadic" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'height:100%;display:grid;place-items:center;padding:2rem;text-align:center;color:#9fb0c8;font-size:0.98rem;\'>Profilfoto hier einfügen<br><small>Dateiname: profile-photo.jpg</small></div>'">
+        </div>
+        <div class="profile-note">
+          <div class="mini-card">
+            <strong>Standort</strong>
+            <span>Oensingen, Schweiz</span>
+          </div>
+          <div class="mini-card">
+            <strong>Fokus</strong>
+            <span>IT-Umschulung & Einstieg IT-Infrastruktur</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section id="ueber-mich">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Über mich</div>
+          <h2>Ein technischer Hintergrund, der hervorragend zur IT passt.</h2>
+          <p>
+            Mein bisheriger Berufsweg ist kein Umweg, sondern ein solides Fundament. Ich komme aus Berufen, in denen Genauigkeit, Verantwortung, sauberes Arbeiten und technisches Verständnis jeden Tag zählen.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <article class="panel about-text">
+            <p>
+              Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Dort war ich über viele Jahre im Einrichten, Bedienen und Überwachen von Maschinen tätig. Qualität, Prozessverständnis und zuverlässiges Arbeiten gehörten dabei immer zu meinem Alltag.
+            </p>
+            <p>
+              Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich arbeite mit Linux-Systemen, virtualisierten Umgebungen, Netzwerken, Self-Hosting, Security-Grundlagen und eigener Infrastruktur im Homelab.
+            </p>
+            <p>
+              Ich bin verheiratet und Vater eines kleinen Sohnes. Das gibt mir nicht nur Rückhalt, sondern verstärkt auch meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.
+            </p>
+          </article>
+
+          <aside class="panel">
+            <ul class="bullet-list">
+              <li><strong>Technisch geprägt:</strong> Viele Jahre praktische Erfahrung in mechanischen und industriellen Arbeitsumgebungen.</li>
+              <li><strong>Strukturiert:</strong> Gewohnt, sauber, genau und lösungsorientiert zu arbeiten.</li>
+              <li><strong>Eigeninitiativ:</strong> IT-Wissen über eigene Projekte und konsequentes Lernen aufgebaut.</li>
+              <li><strong>Langfristig motiviert:</strong> Kein spontaner Wechsel, sondern ein bewusster nächster Karriereschritt.</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="berufsweg">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Beruflicher Weg</div>
+          <h2>Von der Mechanik über CNC bis zur IT.</h2>
+          <p>
+            Meine Laufbahn zeigt, dass ich Verantwortung übernehmen kann, technische Zusammenhänge verstehe und mich in anspruchsvollen Umgebungen bewährt habe.
+          </p>
+        </div>
+
+        <div class="panel timeline">
+          <article class="timeline-item">
+            <div class="timeline-year">2014 – heute</div>
+            <div class="timeline-content">
+              <h3>CNC-Mechaniker</h3>
+              <div class="meta">Stryker GmbH, Selzach</div>
+              <p>Einrichten von Langdrehmaschinen, Qualitätsprüfungen, Programmoptimierungen und Einführung neuer Mitarbeitender.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-year">2008 – 2014</div>
+            <div class="timeline-content">
+              <h3>CNC-Mechaniker</h3>
+              <div class="meta">Synthes GmbH, Balsthal</div>
+              <p>Einrichten und Bedienen verschiedener CNC-Maschinen, Qualitätsüberwachung, Korrekturmassnahmen und Laserbeschriftung.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-year">2007 – 2008</div>
+            <div class="timeline-content">
+              <h3>CNC-Maschinist</h3>
+              <div class="meta">Dreno GmbH, Holderbank</div>
+              <p>Bedienen von Dreh- und Fräszentren sowie Einstieg in industrielle Fertigungsprozesse.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-year">2006 – 2007</div>
+            <div class="timeline-content">
+              <h3>Automechaniker</h3>
+              <div class="meta">DSR Evocars</div>
+              <p>Praxis in Reparaturen, Wartung und Kundenorientierung im Alltag eines technischen Berufs.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-year">2002 – 2006</div>
+            <div class="timeline-content">
+              <h3>Lehre als Automechaniker</h3>
+              <div class="meta">Garage Reinhart, Trimbach</div>
+              <p>Fundament in Technik, Diagnose, Reparaturen, Wartung und sauberem handwerklichem Arbeiten.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="it-kompetenzen">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">IT-Kompetenzen & Homelab</div>
+          <h2>Hands-on-Erfahrung aus eigenen Projekten.</h2>
+          <p>
+            Ich lerne nicht nur theoretisch. Ich setze Dinge praktisch um, betreibe eigene Systeme und beschäftige mich aktiv mit Infrastruktur, Sicherheit und Stabilität.
+          </p>
+        </div>
+
+        <div class="panel skills-grid">
+          <article class="skill-card">
+            <h3>Linux & Server</h3>
+            <div class="tags">
+              <span class="tag">Linux Server</span>
+              <span class="tag">SSH</span>
+              <span class="tag">Benutzerrechte</span>
+              <span class="tag">Services</span>
+              <span class="tag">Systemhärtung</span>
+              <span class="tag">Logs</span>
+            </div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Virtualisierung</h3>
+            <div class="tags">
+              <span class="tag">Proxmox</span>
+              <span class="tag">VirtualBox</span>
+              <span class="tag">Virtuelle Maschinen</span>
+              <span class="tag">Snapshots</span>
+              <span class="tag">Testumgebungen</span>
+            </div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Netzwerke</h3>
+            <div class="tags">
+              <span class="tag">LAN / WLAN / Mesh</span>
+              <span class="tag">NAT</span>
+              <span class="tag">VLAN-Grundlagen</span>
+              <span class="tag">Netzwerkbrücken</span>
+              <span class="tag">Zugriffskontrolle</span>
+            </div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Security</h3>
+            <div class="tags">
+              <span class="tag">Fail2Ban</span>
+              <span class="tag">UFW</span>
+              <span class="tag">Firewall-Regeln</span>
+              <span class="tag">Monitoring</span>
+              <span class="tag">Cybersecurity-Grundlagen</span>
+            </div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Self-Hosting</h3>
+            <div class="tags">
+              <span class="tag">Nextcloud</span>
+              <span class="tag">Webserver</span>
+              <span class="tag">Backups</span>
+              <span class="tag">DNS</span>
+              <span class="tag">Pi-hole</span>
+            </div>
+          </article>
+
+          <article class="skill-card">
+            <h3>Remote Access & Projekte</h3>
+            <div class="tags">
+              <span class="tag">Tailscale</span>
+              <span class="tag">OpenVPN</span>
+              <span class="tag">Raspberry Pi</span>
+              <span class="tag">Automatisierungen</span>
+              <span class="tag">Homelab</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="motivation">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Warum IT?</div>
+          <h2>Weil echtes Interesse auf praktische Erfahrung trifft.</h2>
+          <p>
+            Mein Ziel ist nicht einfach ein Branchenwechsel, sondern der Aufbau einer langfristigen beruflichen Zukunft in einem Bereich, für den ich schon heute Zeit, Energie und Eigeninitiative investiere.
+          </p>
+        </div>
+
+        <div class="motivation-grid">
+          <article class="panel motivation-text">
+            <p>
+              Ich habe mich bewusst entschieden, mein Hobby zum Beruf zu machen. Die IT fasziniert mich, weil sie technisches Denken, Problemlösung, Struktur und laufendes Lernen verbindet. Genau das sind Bereiche, in denen ich mich wiedererkenne.
+            </p>
+            <p>
+              Meine bisherigen Berufe haben mir Disziplin, Genauigkeit und Verantwortungsgefühl mitgegeben. Meine privaten IT-Projekte zeigen, dass ich mich eigenständig in komplexe Themen einarbeite und Dinge praktisch umsetzen kann. Diese Kombination möchte ich nun professionell in die IT-Branche einbringen.
+            </p>
+          </article>
+
+          <aside class="panel">
+            <ul class="bullet-list">
+              <li><strong>Praxisnah:</strong> Ich arbeite gern direkt an Systemen, Problemen und Lösungen.</li>
+              <li><strong>Lernbereit:</strong> Neue Technologien motivieren mich, statt mich abzuschrecken.</li>
+              <li><strong>Verlässlich:</strong> Ich weiss, was Verantwortung im Arbeitsalltag bedeutet.</li>
+              <li><strong>Langfristig:</strong> Ich suche keinen kurzfristigen Wechsel, sondern meinen zukünftigen Berufsweg.</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="staerken">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Stärken</div>
+          <h2>Eigenschaften, auf die man sich verlassen kann.</h2>
+        </div>
+
+        <div class="panel strengths">
+          <div class="strength">Zuverlässig</div>
+          <div class="strength">Teamfähig</div>
+          <div class="strength">Selbständig</div>
+          <div class="strength">Problemlösungsorientiert</div>
+          <div class="strength">Schnelle Auffassungsgabe</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="container">
+        <div class="section-head">
+          <div class="label">Kontakt</div>
+          <h2>Ich freue mich über den Austausch.</h2>
+          <p>
+            Ob für eine IT-Umschulung, ein Gespräch oder eine Einstiegsposition: Ich freue mich darauf, mich persönlich vorzustellen.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="panel contact-copy">
+            <p>
+              Diese Seite ist bewusst klar und direkt aufgebaut. Sie soll zeigen, wer ich bin, was ich mitbringe und warum mein Einstieg in die IT ein logischer nächster Schritt ist.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mailto:andrijan.tadic@gmail.com">E-Mail schreiben</a>
+              <a class="btn btn-secondary" href="tel:+41763495800">Anrufen</a>
+            </div>
+          </article>
+
+          <aside class="panel contact-list">
+            <div class="contact-item">
+              <strong>E-Mail</strong>
+              <span>andrijan.tadic@gmail.com</span>
+            </div>
+            <div class="contact-item">
+              <strong>Telefon</strong>
+              <span>+41 76 349 58 00</span>
+            </div>
+            <div class="contact-item">
+              <strong>Ort</strong>
+              <span>4702 Oensingen, Schweiz</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-card">
+        <span>© <span id="year"></span> Andrijan Tadic</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('mobileMenuBtn');
+    const nav = document.getElementById('navLinks');
+    const year = document.getElementById('year');
+
+    year.textContent = new Date().getFullYear();
+
+    btn?.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+
+    nav?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+</body>
+</html>
