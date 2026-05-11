@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Andrijan Tadic – technischer Quereinsteiger mit Leidenschaft für IT, Homelab, Linux, Netzwerke und Infrastruktur." />
   <meta name="theme-color" content="#0f172a" />
-  <title>Andrijan Tadic | IT-Quereinsteiger</title>
+  <title data-i18n-attr="title">Andrijan Tadic | IT-Quereinsteiger</title>
   <style>
     :root {
       --bg: #08111f;
@@ -90,6 +90,45 @@
     }
 
     .nav-links a:hover { color: var(--white); }
+
+    /* Language Toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.4rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+
+    .lang-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      opacity: 0.5;
+      filter: grayscale(70%);
+    }
+
+    .lang-btn:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+      background: rgba(96, 165, 250, 0.15);
+    }
+
+    .lang-btn.active {
+      opacity: 1;
+      filter: grayscale(0%);
+      background: rgba(96, 165, 250, 0.2);
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.4);
+    }
 
     .cta-small {
       padding: 0.85rem 1.15rem;
@@ -227,7 +266,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-	  object-position: center 20%;
+      object-position: center 20%;
     }
 
     .profile-note {
@@ -252,9 +291,7 @@
 
     .mini-card span { color: var(--muted); font-size: 0.92rem; }
 
-    main section {
-      padding: 1.4rem 0 3.2rem;
-    }
+    main section { padding: 1.4rem 0 3.2rem; }
 
     .section-head {
       margin-bottom: 1.4rem;
@@ -302,10 +339,7 @@
 
     .about-text p,
     .motivation-text p,
-    .contact-copy p {
-      color: var(--muted);
-      margin-top: 0;
-    }
+    .contact-copy p { color: var(--muted); margin-top: 0; }
 
     .bullet-list {
       display: grid;
@@ -325,10 +359,7 @@
 
     .bullet-list strong { color: var(--white); }
 
-    .timeline {
-      display: grid;
-      gap: 1rem;
-    }
+    .timeline { display: grid; gap: 1rem; }
 
     .timeline-item {
       display: grid;
@@ -348,21 +379,9 @@
       letter-spacing: 0.03em;
     }
 
-    .timeline-content h3 {
-      margin: 0 0 0.35rem;
-      font-size: 1.15rem;
-    }
-
-    .timeline-content .meta {
-      color: #c0d2ea;
-      font-size: 0.94rem;
-      margin-bottom: 0.65rem;
-    }
-
-    .timeline-content p {
-      margin: 0;
-      color: var(--muted);
-    }
+    .timeline-content h3 { margin: 0 0 0.35rem; font-size: 1.15rem; }
+    .timeline-content .meta { color: #c0d2ea; font-size: 0.94rem; margin-bottom: 0.65rem; }
+    .timeline-content p { margin: 0; color: var(--muted); }
 
     .skills-grid {
       display: grid;
@@ -377,16 +396,9 @@
       border: 1px solid rgba(148, 163, 184, 0.11);
     }
 
-    .skill-card h3 {
-      margin: 0 0 0.75rem;
-      font-size: 1.08rem;
-    }
+    .skill-card h3 { margin: 0 0 0.75rem; font-size: 1.08rem; }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
 
     .tag {
       padding: 0.48rem 0.72rem;
@@ -413,10 +425,7 @@
       color: #dbe9fb;
     }
 
-    .contact-list {
-      display: grid;
-      gap: 0.8rem;
-    }
+    .contact-list { display: grid; gap: 0.8rem; }
 
     .contact-item {
       display: flex;
@@ -430,6 +439,28 @@
     }
 
     .contact-item span { color: var(--muted); }
+
+    /* Lab-Banner */
+    .lab-banner {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.12), rgba(34, 197, 94, 0.08));
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .lab-banner-text strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .lab-banner-text span { color: var(--muted); font-size: 0.95rem; }
 
     footer {
       padding: 1rem 0 3rem;
@@ -459,15 +490,9 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid,
-      .about-grid,
-      .motivation-grid,
-      .contact-grid,
-      .skills-grid,
-      .strengths {
+      .hero-grid, .about-grid, .motivation-grid, .contact-grid, .skills-grid, .strengths {
         grid-template-columns: 1fr;
       }
-
       .hero { padding-top: 3.8rem; }
       .hero-facts { grid-template-columns: 1fr; }
       .timeline-item { grid-template-columns: 1fr; }
@@ -494,6 +519,7 @@
       .nav-links.open { display: flex; }
       .cta-small { text-align: center; }
       .profile-note { grid-template-columns: 1fr; }
+      .lab-banner { flex-direction: column; text-align: center; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -505,22 +531,28 @@
 <body>
   <header class="topbar">
     <div class="container nav">
-      <a class="brand" href="#start" aria-label="Startseite">
+      <a class="brand" href="#start" aria-label="Home">
         <span class="brand-mark">AT</span>
         <span>Andrijan Tadic</span>
       </a>
 
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="navLinks">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="navLinks" data-i18n="nav-menu">
         Menü
       </button>
 
       <nav class="nav-links" id="navLinks">
-        <a href="#ueber-mich">Über mich</a>
-        <a href="#berufsweg">Berufsweg</a>
-        <a href="#it-kompetenzen">IT-Kompetenzen</a>
-        <a href="#motivation">Motivation</a>
-        <a href="/lab.html" style="color: #22c55e; font-weight: 600;">🛡️ Lab</a>
-        <a href="#kontakt" class="cta-small">Kontakt</a>
+        <a href="#ueber-mich" data-i18n="nav-about">Über mich</a>
+        <a href="#berufsweg" data-i18n="nav-career">Berufsweg</a>
+        <a href="#it-kompetenzen" data-i18n="nav-skills">IT-Kompetenzen</a>
+        <a href="#motivation" data-i18n="nav-motivation">Motivation</a>
+        <a href="/lab.html" style="color: var(--accent-2); font-weight: 600;">🛡️ Lab</a>
+
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="de" onclick="setLang('de')" aria-label="Deutsch" title="Deutsch">🇨🇭</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English" title="English">🇬🇧</button>
+        </div>
+
+        <a href="#kontakt" class="cta-small" data-i18n="nav-contact">Kontakt</a>
       </nav>
     </div>
   </header>
@@ -528,46 +560,46 @@
   <section class="hero" id="start">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <div class="eyebrow">IT-Quereinsteiger aus der Schweiz</div>
-        <h1>Technischer Quereinsteiger mit echter Leidenschaft für IT.</h1>
-        <p>
+        <div class="eyebrow" data-i18n="hero-eyebrow">IT-Quereinsteiger aus der Schweiz</div>
+        <h1 data-i18n="hero-title">Technischer Quereinsteiger mit echter Leidenschaft für IT.</h1>
+        <p data-i18n="hero-description">
           Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und vielen Jahren in der CNC-Fertigung habe ich mich bewusst entschieden, mein langjähriges Hobby zum Beruf zu machen. Heute bringe ich technische Praxiserfahrung, Verantwortungsbewusstsein und echtes Interesse an Linux, Netzwerken, Servern und Infrastruktur in meinen Weg in die IT ein.
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#kontakt">Kontakt aufnehmen</a>
-          <a class="btn btn-secondary" href="./Lebenslauf-Andrijan-Tadic.pdf" target="_blank" rel="noopener">Lebenslauf ansehen</a>
+          <a class="btn btn-primary" href="#kontakt" data-i18n="hero-btn-contact">Kontakt aufnehmen</a>
+          <a class="btn btn-secondary" href="./Lebenslauf-Andrijan-Tadic.pdf" target="_blank" rel="noopener" data-i18n="hero-btn-cv">Lebenslauf ansehen</a>
         </div>
 
         <div class="hero-facts" aria-label="Kurzüberblick">
           <div class="fact">
-            <strong>20+ Jahre</strong>
-            <span>technische Berufserfahrung mit Verantwortung und Präzision</span>
+            <strong data-i18n="fact-1-title">20+ Jahre</strong>
+            <span data-i18n="fact-1-desc">technische Berufserfahrung mit Verantwortung und Präzision</span>
           </div>
           <div class="fact">
-            <strong>Homelab & IT</strong>
-            <span>Linux, Proxmox, Netzwerke, Security und Self-Hosting</span>
+            <strong data-i18n="fact-2-title">Homelab & IT</strong>
+            <span data-i18n="fact-2-desc">Linux, Proxmox, Netzwerke, Security und Self-Hosting</span>
           </div>
           <div class="fact">
-            <strong>Klare Richtung</strong>
-            <span>bewusster und langfristiger Einstieg in die IT-Branche</span>
+            <strong data-i18n="fact-3-title">Klare Richtung</strong>
+            <span data-i18n="fact-3-desc">bewusster und langfristiger Einstieg in die IT-Branche</span>
           </div>
         </div>
       </div>
 
-      <aside class="profile-card" aria-label="Profilbild und Kurzinfos">
+      <aside class="profile-card" aria-label="Profilbild">
         <div class="profile-photo">
-          <!-- Bilddatei im gleichen Ordner ablegen, z. B. profile-photo.jpg -->
-          <img src="./profile-photo.jpg" alt="Portrait von Andrijan Tadic" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'height:100%;display:grid;place-items:center;padding:2rem;text-align:center;color:#9fb0c8;font-size:0.98rem;\'>Profilfoto hier einfügen<br><small>Dateiname: profile-photo.jpg</small></div>'">
+          <img src="./profile-photo.jpg" alt="Portrait Andrijan Tadic"
+            onerror="this.style.display='none'">
         </div>
         <div class="profile-note">
           <div class="mini-card">
-            <strong>Standort</strong>
-            <span>Oensingen, Schweiz</span>
+            <strong data-i18n="profile-location-label">Standort</strong>
+            <span data-i18n="profile-location-value">Oensingen, Schweiz</span>
           </div>
           <div class="mini-card">
-            <strong>Fokus</strong>
-            <span>IT-Umschulung & Einstieg IT-Infrastruktur</span>
+            <strong data-i18n="profile-focus-label">Fokus</strong>
+            <span data-i18n="profile-focus-value">IT-Umschulung & Einstieg IT-Infrastruktur</span>
           </div>
         </div>
       </aside>
@@ -575,35 +607,48 @@
   </section>
 
   <main>
+    <!-- Lab-Banner -->
+    <section id="lab-showcase" style="padding: 0 0 0.5rem;">
+      <div class="container">
+        <div class="lab-banner">
+          <div class="lab-banner-text">
+            <strong data-i18n="lab-banner-title">🛡️ Cybersecurity Homelab</strong>
+            <span data-i18n="lab-banner-desc">OPNsense · NordVPN · Tailscale · Vaultwarden · PiHole — selbst gebaut, dokumentiert auf GitHub</span>
+          </div>
+          <a href="/lab.html" class="btn btn-primary" data-i18n="lab-banner-btn">Lab ansehen →</a>
+        </div>
+      </div>
+    </section>
+
     <section id="ueber-mich">
       <div class="container">
         <div class="section-head">
-          <div class="label">Über mich</div>
-          <h2>Ein technischer Hintergrund, der hervorragend zur IT passt.</h2>
-          <p>
+          <div class="label" data-i18n="about-label">Über mich</div>
+          <h2 data-i18n="about-title">Ein technischer Hintergrund, der hervorragend zur IT passt.</h2>
+          <p data-i18n="about-subtitle">
             Mein bisheriger Berufsweg ist kein Umweg, sondern ein solides Fundament. Ich komme aus Berufen, in denen Genauigkeit, Verantwortung, sauberes Arbeiten und technisches Verständnis jeden Tag zählen.
           </p>
         </div>
 
         <div class="about-grid">
           <article class="panel about-text">
-            <p>
+            <p data-i18n="about-p1">
               Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Dort war ich über viele Jahre im Einrichten, Bedienen und Überwachen von Maschinen tätig. Qualität, Prozessverständnis und zuverlässiges Arbeiten gehörten dabei immer zu meinem Alltag.
             </p>
-            <p>
+            <p data-i18n="about-p2">
               Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich arbeite mit Linux-Systemen, virtualisierten Umgebungen, Netzwerken, Self-Hosting, Security-Grundlagen und eigener Infrastruktur im Homelab.
             </p>
-            <p>
+            <p data-i18n="about-p3">
               Ich bin verheiratet und Vater eines kleinen Sohnes. Das gibt mir nicht nur Rückhalt, sondern verstärkt auch meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.
             </p>
           </article>
 
           <aside class="panel">
             <ul class="bullet-list">
-              <li><strong>Technisch geprägt:</strong> Viele Jahre praktische Erfahrung in mechanischen und industriellen Arbeitsumgebungen.</li>
-              <li><strong>Strukturiert:</strong> Gewohnt, sauber, genau und lösungsorientiert zu arbeiten.</li>
-              <li><strong>Eigeninitiativ:</strong> IT-Wissen über eigene Projekte und konsequentes Lernen aufgebaut.</li>
-              <li><strong>Langfristig motiviert:</strong> Kein spontaner Wechsel, sondern ein bewusster nächster Karriereschritt.</li>
+              <li><strong data-i18n="bullet-1-title">Technisch geprägt:</strong> <span data-i18n="bullet-1-desc">Viele Jahre praktische Erfahrung in mechanischen und industriellen Arbeitsumgebungen.</span></li>
+              <li><strong data-i18n="bullet-2-title">Strukturiert:</strong> <span data-i18n="bullet-2-desc">Gewohnt, sauber, genau und lösungsorientiert zu arbeiten.</span></li>
+              <li><strong data-i18n="bullet-3-title">Eigeninitiativ:</strong> <span data-i18n="bullet-3-desc">IT-Wissen über eigene Projekte und konsequentes Lernen aufgebaut.</span></li>
+              <li><strong data-i18n="bullet-4-title">Langfristig motiviert:</strong> <span data-i18n="bullet-4-desc">Kein spontaner Wechsel, sondern ein bewusster nächster Karriereschritt.</span></li>
             </ul>
           </aside>
         </div>
@@ -613,56 +658,56 @@
     <section id="berufsweg">
       <div class="container">
         <div class="section-head">
-          <div class="label">Beruflicher Weg</div>
-          <h2>Von der Mechanik über CNC bis zur IT.</h2>
-          <p>
+          <div class="label" data-i18n="career-label">Beruflicher Weg</div>
+          <h2 data-i18n="career-title">Von der Mechanik über CNC bis zur IT.</h2>
+          <p data-i18n="career-subtitle">
             Meine Laufbahn zeigt, dass ich Verantwortung übernehmen kann, technische Zusammenhänge verstehe und mich in anspruchsvollen Umgebungen bewährt habe.
           </p>
         </div>
 
         <div class="panel timeline">
           <article class="timeline-item">
-            <div class="timeline-year">2014 – heute</div>
+            <div class="timeline-year">2014 – <span data-i18n="today">heute</span></div>
             <div class="timeline-content">
-              <h3>CNC-Mechaniker</h3>
+              <h3 data-i18n="job-1-title">CNC-Mechaniker</h3>
               <div class="meta">Stryker GmbH, Selzach</div>
-              <p>Einrichten von Langdrehmaschinen, Qualitätsprüfungen, Programmoptimierungen und Einführung neuer Mitarbeitender.</p>
+              <p data-i18n="job-1-desc">Einrichten von Langdrehmaschinen, Qualitätsprüfungen, Programmoptimierungen und Einführung neuer Mitarbeitender.</p>
             </div>
           </article>
 
           <article class="timeline-item">
             <div class="timeline-year">2008 – 2014</div>
             <div class="timeline-content">
-              <h3>CNC-Mechaniker</h3>
+              <h3 data-i18n="job-2-title">CNC-Mechaniker</h3>
               <div class="meta">Synthes GmbH, Balsthal</div>
-              <p>Einrichten und Bedienen verschiedener CNC-Maschinen, Qualitätsüberwachung, Korrekturmassnahmen und Laserbeschriftung.</p>
+              <p data-i18n="job-2-desc">Einrichten und Bedienen verschiedener CNC-Maschinen, Qualitätsüberwachung, Korrekturmassnahmen und Laserbeschriftung.</p>
             </div>
           </article>
 
           <article class="timeline-item">
             <div class="timeline-year">2007 – 2008</div>
             <div class="timeline-content">
-              <h3>CNC-Maschinist</h3>
+              <h3 data-i18n="job-3-title">CNC-Maschinist</h3>
               <div class="meta">Dreno GmbH, Holderbank</div>
-              <p>Bedienen von Dreh- und Fräszentren sowie Einstieg in industrielle Fertigungsprozesse.</p>
+              <p data-i18n="job-3-desc">Bedienen von Dreh- und Fräszentren sowie Einstieg in industrielle Fertigungsprozesse.</p>
             </div>
           </article>
 
           <article class="timeline-item">
             <div class="timeline-year">2006 – 2007</div>
             <div class="timeline-content">
-              <h3>Automechaniker</h3>
+              <h3 data-i18n="job-4-title">Automechaniker</h3>
               <div class="meta">DSR Evocars</div>
-              <p>Praxis in Reparaturen, Wartung und Kundenorientierung im Alltag eines technischen Berufs.</p>
+              <p data-i18n="job-4-desc">Praxis in Reparaturen, Wartung und Kundenorientierung im Alltag eines technischen Berufs.</p>
             </div>
           </article>
 
           <article class="timeline-item">
             <div class="timeline-year">2002 – 2006</div>
             <div class="timeline-content">
-              <h3>Lehre als Automechaniker</h3>
+              <h3 data-i18n="job-5-title">Lehre als Automechaniker</h3>
               <div class="meta">Garage Reinhart, Trimbach</div>
-              <p>Fundament in Technik, Diagnose, Reparaturen, Wartung und sauberem handwerklichem Arbeiten.</p>
+              <p data-i18n="job-5-desc">Fundament in Technik, Diagnose, Reparaturen, Wartung und sauberem handwerklichem Arbeiten.</p>
             </div>
           </article>
         </div>
@@ -672,45 +717,45 @@
     <section id="it-kompetenzen">
       <div class="container">
         <div class="section-head">
-          <div class="label">IT-Kompetenzen & Homelab</div>
-          <h2>Hands-on-Erfahrung aus eigenen Projekten.</h2>
-          <p>
+          <div class="label" data-i18n="skills-label">IT-Kompetenzen & Homelab</div>
+          <h2 data-i18n="skills-title">Hands-on-Erfahrung aus eigenen Projekten.</h2>
+          <p data-i18n="skills-subtitle">
             Ich lerne nicht nur theoretisch. Ich setze Dinge praktisch um, betreibe eigene Systeme und beschäftige mich aktiv mit Infrastruktur, Sicherheit und Stabilität.
           </p>
         </div>
 
         <div class="panel skills-grid">
           <article class="skill-card">
-            <h3>Linux & Server</h3>
+            <h3 data-i18n="skill-1-title">Linux & Server</h3>
             <div class="tags">
               <span class="tag">Linux Server</span>
               <span class="tag">SSH</span>
-              <span class="tag">Benutzerrechte</span>
+              <span class="tag" data-i18n="tag-rights">Benutzerrechte</span>
               <span class="tag">Services</span>
-              <span class="tag">Systemhärtung</span>
+              <span class="tag" data-i18n="tag-hardening">Systemhärtung</span>
               <span class="tag">Logs</span>
             </div>
           </article>
 
           <article class="skill-card">
-            <h3>Virtualisierung</h3>
+            <h3 data-i18n="skill-2-title">Virtualisierung</h3>
             <div class="tags">
               <span class="tag">Proxmox</span>
               <span class="tag">VirtualBox</span>
-              <span class="tag">Virtuelle Maschinen</span>
+              <span class="tag" data-i18n="tag-vms">Virtuelle Maschinen</span>
               <span class="tag">Snapshots</span>
-              <span class="tag">Testumgebungen</span>
+              <span class="tag" data-i18n="tag-testenv">Testumgebungen</span>
             </div>
           </article>
 
           <article class="skill-card">
-            <h3>Netzwerke</h3>
+            <h3 data-i18n="skill-3-title">Netzwerke</h3>
             <div class="tags">
               <span class="tag">LAN / WLAN / Mesh</span>
               <span class="tag">NAT</span>
-              <span class="tag">VLAN-Grundlagen</span>
-              <span class="tag">Netzwerkbrücken</span>
-              <span class="tag">Zugriffskontrolle</span>
+              <span class="tag" data-i18n="tag-vlan">VLAN-Grundlagen</span>
+              <span class="tag" data-i18n="tag-bridge">Netzwerkbrücken</span>
+              <span class="tag" data-i18n="tag-acl">Zugriffskontrolle</span>
             </div>
           </article>
 
@@ -719,9 +764,9 @@
             <div class="tags">
               <span class="tag">Fail2Ban</span>
               <span class="tag">UFW</span>
-              <span class="tag">Firewall-Regeln</span>
+              <span class="tag" data-i18n="tag-fw">Firewall-Regeln</span>
               <span class="tag">Monitoring</span>
-              <span class="tag">Cybersecurity-Grundlagen</span>
+              <span class="tag" data-i18n="tag-cybersec">Cybersecurity-Grundlagen</span>
             </div>
           </article>
 
@@ -729,20 +774,20 @@
             <h3>Self-Hosting</h3>
             <div class="tags">
               <span class="tag">Nextcloud</span>
-              <span class="tag">Webserver</span>
-              <span class="tag">Backups</span>
+              <span class="tag" data-i18n="tag-webserver">Webserver</span>
+              <span class="tag" data-i18n="tag-backup">Backups</span>
               <span class="tag">DNS</span>
               <span class="tag">Pi-hole</span>
             </div>
           </article>
 
           <article class="skill-card">
-            <h3>Remote Access & Projekte</h3>
+            <h3 data-i18n="skill-6-title">Remote Access & Projekte</h3>
             <div class="tags">
               <span class="tag">Tailscale</span>
               <span class="tag">OpenVPN</span>
               <span class="tag">Raspberry Pi</span>
-              <span class="tag">Automatisierungen</span>
+              <span class="tag" data-i18n="tag-auto">Automatisierungen</span>
               <span class="tag">Homelab</span>
             </div>
           </article>
@@ -753,29 +798,29 @@
     <section id="motivation">
       <div class="container">
         <div class="section-head">
-          <div class="label">Warum IT?</div>
-          <h2>Weil echtes Interesse auf praktische Erfahrung trifft.</h2>
-          <p>
+          <div class="label" data-i18n="motivation-label">Warum IT?</div>
+          <h2 data-i18n="motivation-title">Weil echtes Interesse auf praktische Erfahrung trifft.</h2>
+          <p data-i18n="motivation-subtitle">
             Mein Ziel ist nicht einfach ein Branchenwechsel, sondern der Aufbau einer langfristigen beruflichen Zukunft in einem Bereich, für den ich schon heute Zeit, Energie und Eigeninitiative investiere.
           </p>
         </div>
 
         <div class="motivation-grid">
           <article class="panel motivation-text">
-            <p>
+            <p data-i18n="motivation-p1">
               Ich habe mich bewusst entschieden, mein Hobby zum Beruf zu machen. Die IT fasziniert mich, weil sie technisches Denken, Problemlösung, Struktur und laufendes Lernen verbindet. Genau das sind Bereiche, in denen ich mich wiedererkenne.
             </p>
-            <p>
+            <p data-i18n="motivation-p2">
               Meine bisherigen Berufe haben mir Disziplin, Genauigkeit und Verantwortungsgefühl mitgegeben. Meine privaten IT-Projekte zeigen, dass ich mich eigenständig in komplexe Themen einarbeite und Dinge praktisch umsetzen kann. Diese Kombination möchte ich nun professionell in die IT-Branche einbringen.
             </p>
           </article>
 
           <aside class="panel">
             <ul class="bullet-list">
-              <li><strong>Praxisnah:</strong> Ich arbeite gern direkt an Systemen, Problemen und Lösungen.</li>
-              <li><strong>Lernbereit:</strong> Neue Technologien motivieren mich, statt mich abzuschrecken.</li>
-              <li><strong>Verlässlich:</strong> Ich weiss, was Verantwortung im Arbeitsalltag bedeutet.</li>
-              <li><strong>Langfristig:</strong> Ich suche keinen kurzfristigen Wechsel, sondern meinen zukünftigen Berufsweg.</li>
+              <li><strong data-i18n="mot-1-title">Praxisnah:</strong> <span data-i18n="mot-1-desc">Ich arbeite gern direkt an Systemen, Problemen und Lösungen.</span></li>
+              <li><strong data-i18n="mot-2-title">Lernbereit:</strong> <span data-i18n="mot-2-desc">Neue Technologien motivieren mich, statt mich abzuschrecken.</span></li>
+              <li><strong data-i18n="mot-3-title">Verlässlich:</strong> <span data-i18n="mot-3-desc">Ich weiss, was Verantwortung im Arbeitsalltag bedeutet.</span></li>
+              <li><strong data-i18n="mot-4-title">Langfristig:</strong> <span data-i18n="mot-4-desc">Ich suche keinen kurzfristigen Wechsel, sondern meinen zukünftigen Berufsweg.</span></li>
             </ul>
           </aside>
         </div>
@@ -785,16 +830,16 @@
     <section id="staerken">
       <div class="container">
         <div class="section-head">
-          <div class="label">Stärken</div>
-          <h2>Eigenschaften, auf die man sich verlassen kann.</h2>
+          <div class="label" data-i18n="strengths-label">Stärken</div>
+          <h2 data-i18n="strengths-title">Eigenschaften, auf die man sich verlassen kann.</h2>
         </div>
 
         <div class="panel strengths">
-          <div class="strength">Zuverlässig</div>
-          <div class="strength">Teamfähig</div>
-          <div class="strength">Selbständig</div>
-          <div class="strength">Problemlösungsorientiert</div>
-          <div class="strength">Schnelle Auffassungsgabe</div>
+          <div class="strength" data-i18n="strength-1">Zuverlässig</div>
+          <div class="strength" data-i18n="strength-2">Teamfähig</div>
+          <div class="strength" data-i18n="strength-3">Selbständig</div>
+          <div class="strength" data-i18n="strength-4">Problemlösungsorientiert</div>
+          <div class="strength" data-i18n="strength-5">Schnelle Auffassungsgabe</div>
         </div>
       </div>
     </section>
@@ -802,36 +847,36 @@
     <section id="kontakt">
       <div class="container">
         <div class="section-head">
-          <div class="label">Kontakt</div>
-          <h2>Ich freue mich über den Austausch.</h2>
-          <p>
+          <div class="label" data-i18n="contact-label">Kontakt</div>
+          <h2 data-i18n="contact-title">Ich freue mich über den Austausch.</h2>
+          <p data-i18n="contact-subtitle">
             Ob für eine IT-Umschulung, ein Gespräch oder eine Einstiegsposition: Ich freue mich darauf, mich persönlich vorzustellen.
           </p>
         </div>
 
         <div class="contact-grid">
           <article class="panel contact-copy">
-            <p>
+            <p data-i18n="contact-p1">
               Diese Seite ist bewusst klar und direkt aufgebaut. Sie soll zeigen, wer ich bin, was ich mitbringe und warum mein Einstieg in die IT ein logischer nächster Schritt ist.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="mailto:andrijan.tadic@gmail.com">E-Mail schreiben</a>
-              <a class="btn btn-secondary" href="tel:+41763495800">Anrufen</a>
+              <a class="btn btn-primary" href="mailto:andrijan.tadic@gmail.com" data-i18n="contact-btn-email">E-Mail schreiben</a>
+              <a class="btn btn-secondary" href="tel:+41763495800" data-i18n="contact-btn-phone">Anrufen</a>
             </div>
           </article>
 
           <aside class="panel contact-list">
             <div class="contact-item">
-              <strong>E-Mail</strong>
+              <strong data-i18n="contact-email-label">E-Mail</strong>
               <span>andrijan.tadic@gmail.com</span>
             </div>
             <div class="contact-item">
-              <strong>Telefon</strong>
+              <strong data-i18n="contact-phone-label">Telefon</strong>
               <span>+41 76 349 58 00</span>
             </div>
             <div class="contact-item">
-              <strong>Ort</strong>
-              <span>4702 Oensingen, Schweiz</span>
+              <strong data-i18n="contact-location-label">Ort</strong>
+              <span data-i18n="contact-location-value">4702 Oensingen, Schweiz</span>
             </div>
           </aside>
         </div>
@@ -843,16 +888,295 @@
     <div class="container">
       <div class="footer-card">
         <span>© <span id="year"></span> Andrijan Tadic</span>
+        <span>
+          <a href="/lab.html" style="color: var(--accent);">🛡️ Lab</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/sudoAndro/andro-lab" target="_blank" rel="noopener" style="color: var(--muted);">GitHub</a>
+        </span>
       </div>
     </div>
   </footer>
 
+  <!-- ==================== TRANSLATIONS ==================== -->
   <script>
+    const translations = {
+      de: {
+        // Nav
+        'nav-menu': 'Menü',
+        'nav-about': 'Über mich',
+        'nav-career': 'Berufsweg',
+        'nav-skills': 'IT-Kompetenzen',
+        'nav-motivation': 'Motivation',
+        'nav-contact': 'Kontakt',
+
+        // Hero
+        'hero-eyebrow': 'IT-Quereinsteiger aus der Schweiz',
+        'hero-title': 'Technischer Quereinsteiger mit echter Leidenschaft für IT.',
+        'hero-description': 'Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und vielen Jahren in der CNC-Fertigung habe ich mich bewusst entschieden, mein langjähriges Hobby zum Beruf zu machen. Heute bringe ich technische Praxiserfahrung, Verantwortungsbewusstsein und echtes Interesse an Linux, Netzwerken, Servern und Infrastruktur in meinen Weg in die IT ein.',
+        'hero-btn-contact': 'Kontakt aufnehmen',
+        'hero-btn-cv': 'Lebenslauf ansehen',
+        'fact-1-title': '20+ Jahre',
+        'fact-1-desc': 'technische Berufserfahrung mit Verantwortung und Präzision',
+        'fact-2-title': 'Homelab & IT',
+        'fact-2-desc': 'Linux, Proxmox, Netzwerke, Security und Self-Hosting',
+        'fact-3-title': 'Klare Richtung',
+        'fact-3-desc': 'bewusster und langfristiger Einstieg in die IT-Branche',
+
+        // Profile
+        'profile-location-label': 'Standort',
+        'profile-location-value': 'Oensingen, Schweiz',
+        'profile-focus-label': 'Fokus',
+        'profile-focus-value': 'IT-Umschulung & Einstieg IT-Infrastruktur',
+
+        // Lab banner
+        'lab-banner-title': '🛡️ Cybersecurity Homelab',
+        'lab-banner-desc': 'OPNsense · NordVPN · Tailscale · Vaultwarden · PiHole — selbst gebaut, dokumentiert auf GitHub',
+        'lab-banner-btn': 'Lab ansehen →',
+
+        // About
+        'about-label': 'Über mich',
+        'about-title': 'Ein technischer Hintergrund, der hervorragend zur IT passt.',
+        'about-subtitle': 'Mein bisheriger Berufsweg ist kein Umweg, sondern ein solides Fundament. Ich komme aus Berufen, in denen Genauigkeit, Verantwortung, sauberes Arbeiten und technisches Verständnis jeden Tag zählen.',
+        'about-p1': 'Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Dort war ich über viele Jahre im Einrichten, Bedienen und Überwachen von Maschinen tätig. Qualität, Prozessverständnis und zuverlässiges Arbeiten gehörten dabei immer zu meinem Alltag.',
+        'about-p2': 'Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich arbeite mit Linux-Systemen, virtualisierten Umgebungen, Netzwerken, Self-Hosting, Security-Grundlagen und eigener Infrastruktur im Homelab.',
+        'about-p3': 'Ich bin verheiratet und Vater eines kleinen Sohnes. Das gibt mir nicht nur Rückhalt, sondern verstärkt auch meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.',
+        'bullet-1-title': 'Technisch geprägt:',
+        'bullet-1-desc': 'Viele Jahre praktische Erfahrung in mechanischen und industriellen Arbeitsumgebungen.',
+        'bullet-2-title': 'Strukturiert:',
+        'bullet-2-desc': 'Gewohnt, sauber, genau und lösungsorientiert zu arbeiten.',
+        'bullet-3-title': 'Eigeninitiativ:',
+        'bullet-3-desc': 'IT-Wissen über eigene Projekte und konsequentes Lernen aufgebaut.',
+        'bullet-4-title': 'Langfristig motiviert:',
+        'bullet-4-desc': 'Kein spontaner Wechsel, sondern ein bewusster nächster Karriereschritt.',
+
+        // Career
+        'career-label': 'Beruflicher Weg',
+        'career-title': 'Von der Mechanik über CNC bis zur IT.',
+        'career-subtitle': 'Meine Laufbahn zeigt, dass ich Verantwortung übernehmen kann, technische Zusammenhänge verstehe und mich in anspruchsvollen Umgebungen bewährt habe.',
+        'today': 'heute',
+        'job-1-title': 'CNC-Mechaniker',
+        'job-1-desc': 'Einrichten von Langdrehmaschinen, Qualitätsprüfungen, Programmoptimierungen und Einführung neuer Mitarbeitender.',
+        'job-2-title': 'CNC-Mechaniker',
+        'job-2-desc': 'Einrichten und Bedienen verschiedener CNC-Maschinen, Qualitätsüberwachung, Korrekturmassnahmen und Laserbeschriftung.',
+        'job-3-title': 'CNC-Maschinist',
+        'job-3-desc': 'Bedienen von Dreh- und Fräszentren sowie Einstieg in industrielle Fertigungsprozesse.',
+        'job-4-title': 'Automechaniker',
+        'job-4-desc': 'Praxis in Reparaturen, Wartung und Kundenorientierung im Alltag eines technischen Berufs.',
+        'job-5-title': 'Lehre als Automechaniker',
+        'job-5-desc': 'Fundament in Technik, Diagnose, Reparaturen, Wartung und sauberem handwerklichem Arbeiten.',
+
+        // Skills
+        'skills-label': 'IT-Kompetenzen & Homelab',
+        'skills-title': 'Hands-on-Erfahrung aus eigenen Projekten.',
+        'skills-subtitle': 'Ich lerne nicht nur theoretisch. Ich setze Dinge praktisch um, betreibe eigene Systeme und beschäftige mich aktiv mit Infrastruktur, Sicherheit und Stabilität.',
+        'skill-1-title': 'Linux & Server',
+        'skill-2-title': 'Virtualisierung',
+        'skill-3-title': 'Netzwerke',
+        'skill-6-title': 'Remote Access & Projekte',
+        'tag-rights': 'Benutzerrechte',
+        'tag-hardening': 'Systemhärtung',
+        'tag-vms': 'Virtuelle Maschinen',
+        'tag-testenv': 'Testumgebungen',
+        'tag-vlan': 'VLAN-Grundlagen',
+        'tag-bridge': 'Netzwerkbrücken',
+        'tag-acl': 'Zugriffskontrolle',
+        'tag-fw': 'Firewall-Regeln',
+        'tag-cybersec': 'Cybersecurity-Grundlagen',
+        'tag-webserver': 'Webserver',
+        'tag-backup': 'Backups',
+        'tag-auto': 'Automatisierungen',
+
+        // Motivation
+        'motivation-label': 'Warum IT?',
+        'motivation-title': 'Weil echtes Interesse auf praktische Erfahrung trifft.',
+        'motivation-subtitle': 'Mein Ziel ist nicht einfach ein Branchenwechsel, sondern der Aufbau einer langfristigen beruflichen Zukunft in einem Bereich, für den ich schon heute Zeit, Energie und Eigeninitiative investiere.',
+        'motivation-p1': 'Ich habe mich bewusst entschieden, mein Hobby zum Beruf zu machen. Die IT fasziniert mich, weil sie technisches Denken, Problemlösung, Struktur und laufendes Lernen verbindet. Genau das sind Bereiche, in denen ich mich wiedererkenne.',
+        'motivation-p2': 'Meine bisherigen Berufe haben mir Disziplin, Genauigkeit und Verantwortungsgefühl mitgegeben. Meine privaten IT-Projekte zeigen, dass ich mich eigenständig in komplexe Themen einarbeite und Dinge praktisch umsetzen kann. Diese Kombination möchte ich nun professionell in die IT-Branche einbringen.',
+        'mot-1-title': 'Praxisnah:',
+        'mot-1-desc': 'Ich arbeite gern direkt an Systemen, Problemen und Lösungen.',
+        'mot-2-title': 'Lernbereit:',
+        'mot-2-desc': 'Neue Technologien motivieren mich, statt mich abzuschrecken.',
+        'mot-3-title': 'Verlässlich:',
+        'mot-3-desc': 'Ich weiss, was Verantwortung im Arbeitsalltag bedeutet.',
+        'mot-4-title': 'Langfristig:',
+        'mot-4-desc': 'Ich suche keinen kurzfristigen Wechsel, sondern meinen zukünftigen Berufsweg.',
+
+        // Strengths
+        'strengths-label': 'Stärken',
+        'strengths-title': 'Eigenschaften, auf die man sich verlassen kann.',
+        'strength-1': 'Zuverlässig',
+        'strength-2': 'Teamfähig',
+        'strength-3': 'Selbständig',
+        'strength-4': 'Problemlösungsorientiert',
+        'strength-5': 'Schnelle Auffassungsgabe',
+
+        // Contact
+        'contact-label': 'Kontakt',
+        'contact-title': 'Ich freue mich über den Austausch.',
+        'contact-subtitle': 'Ob für eine IT-Umschulung, ein Gespräch oder eine Einstiegsposition: Ich freue mich darauf, mich persönlich vorzustellen.',
+        'contact-p1': 'Diese Seite ist bewusst klar und direkt aufgebaut. Sie soll zeigen, wer ich bin, was ich mitbringe und warum mein Einstieg in die IT ein logischer nächster Schritt ist.',
+        'contact-btn-email': 'E-Mail schreiben',
+        'contact-btn-phone': 'Anrufen',
+        'contact-email-label': 'E-Mail',
+        'contact-phone-label': 'Telefon',
+        'contact-location-label': 'Ort',
+        'contact-location-value': '4702 Oensingen, Schweiz',
+      },
+
+      en: {
+        // Nav
+        'nav-menu': 'Menu',
+        'nav-about': 'About',
+        'nav-career': 'Career',
+        'nav-skills': 'IT Skills',
+        'nav-motivation': 'Why IT?',
+        'nav-contact': 'Contact',
+
+        // Hero
+        'hero-eyebrow': 'Career changer from Switzerland',
+        'hero-title': 'Technical career changer with a genuine passion for IT.',
+        'hero-description': 'I\'m Andrijan Tadic. After my training as an automotive mechanic and many years in CNC manufacturing, I made the deliberate decision to turn my long-time hobby into a career. I bring hands-on technical experience, a strong sense of responsibility and genuine interest in Linux, networking, servers and infrastructure.',
+        'hero-btn-contact': 'Get in touch',
+        'hero-btn-cv': 'View CV',
+        'fact-1-title': '20+ years',
+        'fact-1-desc': 'of technical professional experience with responsibility and precision',
+        'fact-2-title': 'Homelab & IT',
+        'fact-2-desc': 'Linux, Proxmox, networking, security and self-hosting',
+        'fact-3-title': 'Clear direction',
+        'fact-3-desc': 'a deliberate and long-term entry into the IT industry',
+
+        // Profile
+        'profile-location-label': 'Location',
+        'profile-location-value': 'Oensingen, Switzerland',
+        'profile-focus-label': 'Focus',
+        'profile-focus-value': 'IT retraining & infrastructure entry',
+
+        // Lab banner
+        'lab-banner-title': '🛡️ Cybersecurity Homelab',
+        'lab-banner-desc': 'OPNsense · NordVPN · Tailscale · Vaultwarden · PiHole — built from scratch, documented on GitHub',
+        'lab-banner-btn': 'View the Lab →',
+
+        // About
+        'about-label': 'About me',
+        'about-title': 'A technical background that fits IT perfectly.',
+        'about-subtitle': 'My career path so far isn\'t a detour — it\'s a solid foundation. I come from professions where precision, responsibility, clean work and technical understanding matter every single day.',
+        'about-p1': 'After my 4-year apprenticeship as an automotive mechanic, I worked in that field before transitioning into CNC manufacturing. For many years I was responsible for setting up, operating and monitoring machines. Quality, process understanding and reliable work were always central to my daily work.',
+        'about-p2': 'In parallel, I have intensively explored IT on my own. Over the years it has become much more than a hobby: I work with Linux systems, virtualised environments, networks, self-hosting, security fundamentals and my own homelab infrastructure.',
+        'about-p3': 'I am married and father of a young son. This gives me not only support but also reinforces my desire to pursue a long-term and clear career path in IT.',
+        'bullet-1-title': 'Technically shaped:',
+        'bullet-1-desc': 'Many years of hands-on experience in mechanical and industrial environments.',
+        'bullet-2-title': 'Structured:',
+        'bullet-2-desc': 'Accustomed to working cleanly, precisely and solution-oriented.',
+        'bullet-3-title': 'Self-driven:',
+        'bullet-3-desc': 'Built IT knowledge through personal projects and consistent self-learning.',
+        'bullet-4-title': 'Long-term motivated:',
+        'bullet-4-desc': 'Not a spontaneous switch, but a deliberate next career step.',
+
+        // Career
+        'career-label': 'Career path',
+        'career-title': 'From mechanics to CNC to IT.',
+        'career-subtitle': 'My career demonstrates that I can take on responsibility, understand technical connections and perform well in demanding environments.',
+        'today': 'present',
+        'job-1-title': 'CNC Machinist',
+        'job-1-desc': 'Setting up long-turning machines, quality inspections, program optimisation and training new employees.',
+        'job-2-title': 'CNC Machinist',
+        'job-2-desc': 'Setting up and operating various CNC machines, quality monitoring, corrective actions and laser engraving.',
+        'job-3-title': 'CNC Operator',
+        'job-3-desc': 'Operating turning and milling centres and introduction to industrial manufacturing processes.',
+        'job-4-title': 'Automotive Mechanic',
+        'job-4-desc': 'Hands-on experience in repairs, maintenance and customer service in a technical profession.',
+        'job-5-title': 'Apprenticeship as Automotive Mechanic',
+        'job-5-desc': 'Foundation in technology, diagnostics, repairs, maintenance and clean craftmanship.',
+
+        // Skills
+        'skills-label': 'IT Skills & Homelab',
+        'skills-title': 'Hands-on experience from personal projects.',
+        'skills-subtitle': 'I don\'t just learn in theory. I implement things practically, run my own systems and actively work with infrastructure, security and stability.',
+        'skill-1-title': 'Linux & Servers',
+        'skill-2-title': 'Virtualisation',
+        'skill-3-title': 'Networking',
+        'skill-6-title': 'Remote Access & Projects',
+        'tag-rights': 'User permissions',
+        'tag-hardening': 'System hardening',
+        'tag-vms': 'Virtual Machines',
+        'tag-testenv': 'Test environments',
+        'tag-vlan': 'VLAN basics',
+        'tag-bridge': 'Network bridges',
+        'tag-acl': 'Access control',
+        'tag-fw': 'Firewall rules',
+        'tag-cybersec': 'Cybersecurity basics',
+        'tag-webserver': 'Web server',
+        'tag-backup': 'Backups',
+        'tag-auto': 'Automations',
+
+        // Motivation
+        'motivation-label': 'Why IT?',
+        'motivation-title': 'Because genuine interest meets practical experience.',
+        'motivation-subtitle': 'My goal isn\'t simply a change of industry, but building a long-term professional future in a field where I already invest time, energy and initiative today.',
+        'motivation-p1': 'I made the deliberate decision to turn my hobby into a career. IT fascinates me because it combines technical thinking, problem-solving, structure and continuous learning — exactly the areas I identify with.',
+        'motivation-p2': 'My previous professions gave me discipline, precision and a sense of responsibility. My personal IT projects demonstrate that I can independently work through complex topics and implement things in practice. I now want to bring this combination professionally into the IT industry.',
+        'mot-1-title': 'Hands-on:',
+        'mot-1-desc': 'I enjoy working directly with systems, problems and solutions.',
+        'mot-2-title': 'Eager to learn:',
+        'mot-2-desc': 'New technologies motivate me rather than intimidate me.',
+        'mot-3-title': 'Reliable:',
+        'mot-3-desc': 'I know what responsibility in a working environment means.',
+        'mot-4-title': 'Long-term:',
+        'mot-4-desc': 'I\'m not looking for a short-term switch, but for my future career path.',
+
+        // Strengths
+        'strengths-label': 'Strengths',
+        'strengths-title': 'Qualities you can rely on.',
+        'strength-1': 'Reliable',
+        'strength-2': 'Team player',
+        'strength-3': 'Independent',
+        'strength-4': 'Problem-solving oriented',
+        'strength-5': 'Fast learner',
+
+        // Contact
+        'contact-label': 'Contact',
+        'contact-title': 'I look forward to connecting.',
+        'contact-subtitle': 'Whether for an IT retraining, a conversation or an entry-level position: I look forward to introducing myself personally.',
+        'contact-p1': 'This page is intentionally clear and direct. It\'s meant to show who I am, what I bring and why my entry into IT is a logical next step.',
+        'contact-btn-email': 'Send an email',
+        'contact-btn-phone': 'Call me',
+        'contact-email-label': 'Email',
+        'contact-phone-label': 'Phone',
+        'contact-location-label': 'Location',
+        'contact-location-value': '4702 Oensingen, Switzerland',
+      }
+    };
+
+    function setLang(lang) {
+      document.documentElement.lang = lang === 'de' ? 'de-CH' : 'en';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      try {
+        localStorage.setItem('preferredLang', lang);
+      } catch (e) {}
+    }
+
+    // Init
+    (function() {
+      let savedLang = 'de';
+      try { savedLang = localStorage.getItem('preferredLang') || 'de'; } catch (e) {}
+      setLang(savedLang);
+    })();
+
+    // Mobile menu
     const btn = document.getElementById('mobileMenuBtn');
     const nav = document.getElementById('navLinks');
-    const year = document.getElementById('year');
-
-    year.textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     btn?.addEventListener('click', () => {
       const open = nav.classList.toggle('open');
@@ -862,7 +1186,7 @@
     nav?.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         nav.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
+        btn?.setAttribute('aria-expanded', 'false');
       });
     });
   </script>
