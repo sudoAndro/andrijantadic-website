@@ -545,7 +545,7 @@
     <div class="container">
       <div class="section-head">
         <span class="label" data-i18n="arch-label">Architecture</span>
-        <h2 data-i18n="arch-title">Five layers of defense</h2>
+        <h2 data-i18n="arch-title">Six layers of defense</h2>
         <p data-i18n="arch-description">
           Each layer protects independently. If one fails, the others continue defending. This is the essence
           of defense in depth — and the principle this lab is built around.
@@ -582,6 +582,11 @@
           <h3>HTTPS + Crowdsec</h3>
           <p data-i18n="layer-5-desc">Application-layer TLS encryption with brute-force protection.</p>
         </div>
+        <div class="layer-card">
+          <span class="num">6</span>
+          <h3>VPNNET Segment</h3>
+          <p data-i18n="layer-6-desc">Dedicated VPN-routed network: join the WiFi and 100% of traffic exits through NordVPN — kill switch enforced, no apps needed.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -599,7 +604,7 @@
         <div class="feature">
           <div class="icon">🛡️</div>
           <h3 data-i18n="feature-1-title">Privacy by design</h3>
-          <p data-i18n="feature-1-desc">All LAN traffic flows through NordVPN. Killswitch prevents leaks. DNS filtered through PiHole.</p>
+          <p data-i18n="feature-1-desc">Dedicated VPN network (VPNNET): every device in it routes 100% through NordVPN. Killswitch prevents leaks. DNS filtered through PiHole — only port 53 leaves the segment.</p>
         </div>
         <div class="feature">
           <div class="icon">🌍</div>
@@ -642,6 +647,7 @@
         <h3 data-i18n="stack-group-2">Networking</h3>
         <div class="tech-pills">
           <span class="pill green">OPNsense</span>
+          <span class="pill green">Suricata IDS</span>
           <span class="pill green">WireGuard</span>
           <span class="pill green">NordVPN</span>
           <span class="pill green">Tailscale</span>
@@ -709,6 +715,14 @@
           <h4 data-i18n="lesson-6-title">📸 Snapshots saved me 15 times</h4>
           <p data-i18n="lesson-6-desc">Every nontrivial change got a labeled, dated Proxmox snapshot. Storage is cheap; debugging time is expensive.</p>
         </div>
+        <div class="lesson-card amber">
+          <h4 data-i18n="lesson-7-title">💾 "Save" is not "Apply"</h4>
+          <p data-i18n="lesson-7-desc">Firewall rules were configured perfectly — and inactive. OPNsense stages changes until you hit Apply. 20 minutes of debugging a config that was already right.</p>
+        </div>
+        <div class="lesson-card">
+          <h4 data-i18n="lesson-8-title">🕳️ DNS takes its own path</h4>
+          <p data-i18n="lesson-8-desc">Traffic in the tunnel ≠ DNS in the tunnel. The leak test showed my real IP while every connection was safely tunneled. Fix: DHCP points at PiHole, firewall allows only port 53.</p>
+        </div>
       </div>
 
       <p class="lessons-link">
@@ -770,20 +784,21 @@
 
         // Architecture
         'arch-label': 'Architecture',
-        'arch-title': 'Five layers of defense',
+        'arch-title': 'Six layers of defense',
         'arch-description': 'Each layer protects independently. If one fails, the others continue defending. This is the essence of defense in depth — and the principle this lab is built around.',
         'layer-1-desc': 'Hides home IP, encrypts traffic to the internet via WireGuard tunnel.',
         'layer-2-desc': 'Killswitch, stateful filtering, network segmentation. Configured by hand.',
         'layer-3-desc': 'DNS-level ad-blocking, tracker blocking, malware domain filtering.',
         'layer-4-desc': 'Zero-trust mesh VPN. Devices identify cryptographically — no shared passwords.',
         'layer-5-desc': 'Application-layer TLS encryption with brute-force protection.',
+        'layer-6-desc': 'Dedicated VPN-routed network: join the WiFi and 100% of traffic exits through NordVPN — kill switch enforced, no apps needed.',
 
         // Features
         'features-label': 'Key features',
         'features-title': 'What this lab actually does',
         'features-description': 'Not theory — working infrastructure I use every day.',
         'feature-1-title': 'Privacy by design',
-        'feature-1-desc': 'All LAN traffic flows through NordVPN. Killswitch prevents leaks. DNS filtered through PiHole.',
+        'feature-1-desc': 'Dedicated VPN network (VPNNET): every device in it routes 100% through NordVPN. Killswitch prevents leaks. DNS filtered through PiHole — only port 53 leaves the segment.',
         'feature-2-title': 'Secure remote access',
         'feature-2-desc': 'Tailscale mesh: phone and laptop reach lab from anywhere. Subnet routing for full LAN access.',
         'feature-3-title': 'Hardened authentication',
@@ -816,6 +831,10 @@
         'lesson-5-desc': 'Caddy\'s "Caddyfile not formatted" looks scary. It\'s purely cosmetic. Read log levels carefully before panicking.',
         'lesson-6-title': '📸 Snapshots saved me 15 times',
         'lesson-6-desc': 'Every nontrivial change got a labeled, dated Proxmox snapshot. Storage is cheap; debugging time is expensive.',
+        'lesson-7-title': '💾 "Save" is not "Apply"',
+        'lesson-7-desc': 'Firewall rules were configured perfectly — and inactive. OPNsense stages changes until you hit Apply. 20 minutes of debugging a config that was already right.',
+        'lesson-8-title': '🕳️ DNS takes its own path',
+        'lesson-8-desc': 'Traffic in the tunnel ≠ DNS in the tunnel. The leak test showed my real IP while every connection was safely tunneled. Fix: DHCP points at PiHole, firewall allows only port 53.',
         'lessons-full': 'Full details in',
         'lessons-github': 'on GitHub.',
 
@@ -848,20 +867,21 @@
 
         // Architecture
         'arch-label': 'Architektur',
-        'arch-title': 'Fünf Verteidigungs-Schichten',
+        'arch-title': 'Sechs Verteidigungs-Schichten',
         'arch-description': 'Jede Schicht schützt unabhängig. Wenn eine versagt, verteidigen die anderen weiter. Das ist die Essenz von Defense in Depth – und das Prinzip, auf dem dieses Lab aufgebaut ist.',
         'layer-1-desc': 'Versteckt die Heim-IP, verschlüsselt den Internet-Traffic über WireGuard-Tunnel.',
         'layer-2-desc': 'Killswitch, Stateful Filtering, Netzwerk-Segmentierung. Manuell konfiguriert.',
         'layer-3-desc': 'Blockiert Werbung, Tracker und Malware-Domains auf DNS-Ebene.',
         'layer-4-desc': 'Zero-Trust Mesh-VPN. Geräte identifizieren sich kryptografisch – keine geteilten Passwörter.',
         'layer-5-desc': 'TLS-Verschlüsselung auf Anwendungsebene mit Brute-Force-Schutz.',
+        'layer-6-desc': 'Dediziertes VPN-geroutetes Netz: WLAN verbinden und 100% des Traffics verlässt das Haus durch NordVPN – Kill Switch inklusive, ganz ohne Apps.',
 
         // Features
         'features-label': 'Kern-Funktionen',
         'features-title': 'Was dieses Lab wirklich kann',
         'features-description': 'Keine Theorie – funktionierende Infrastruktur, die ich täglich nutze.',
         'feature-1-title': 'Privacy by Design',
-        'feature-1-desc': 'Aller LAN-Traffic läuft durch NordVPN. Killswitch verhindert Leaks. DNS gefiltert durch PiHole.',
+        'feature-1-desc': 'Dediziertes VPN-Netz (VPNNET): Jedes Gerät darin läuft zu 100% durch NordVPN. Killswitch verhindert Leaks. DNS gefiltert durch PiHole – nur Port 53 verlässt das Segment.',
         'feature-2-title': 'Sicherer Fernzugriff',
         'feature-2-desc': 'Tailscale-Mesh: Handy und Laptop erreichen das Lab von überall. Subnet-Routing für vollen LAN-Zugriff.',
         'feature-3-title': 'Starke Authentifizierung',
@@ -894,6 +914,10 @@
         'lesson-5-desc': 'Caddys "Caddyfile not formatted" sieht beängstigend aus. Es ist rein kosmetisch. Log-Level sorgfältig lesen, bevor man in Panik gerät.',
         'lesson-6-title': '📸 Snapshots haben mich 15-mal gerettet',
         'lesson-6-desc': 'Jede nicht-triviale Änderung bekam einen beschrifteten, datierten Proxmox-Snapshot. Speicher ist günstig; Debugging-Zeit ist teuer.',
+        'lesson-7-title': '💾 "Speichern" ist nicht "Anwenden"',
+        'lesson-7-desc': 'Firewall-Regeln waren perfekt konfiguriert – und inaktiv. OPNsense hält Änderungen zurück, bis man Anwenden klickt. 20 Minuten Debugging einer Config, die schon richtig war.',
+        'lesson-8-title': '🕳️ DNS geht eigene Wege',
+        'lesson-8-desc': 'Traffic im Tunnel ≠ DNS im Tunnel. Der Leak-Test zeigte meine echte IP, während jede Verbindung sauber getunnelt war. Fix: DHCP zeigt auf PiHole, Firewall erlaubt nur Port 53.',
         'lessons-full': 'Alle Details in',
         'lessons-github': 'auf GitHub.',
 
