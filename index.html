@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Andrijan Tadic – technischer Quereinsteiger mit Leidenschaft für IT, Homelab, Linux, Netzwerke und Infrastruktur." />
+  <meta name="description" content="Andrijan Tadic – IT-Quereinsteiger in Umschulung zum ICT Power-User & ICT Professional SIZ. Homelab: Linux, Proxmox, OPNsense, Netzwerke, Security & Monitoring." />
   <meta name="theme-color" content="#0f172a" />
   <title data-i18n-attr="title">Andrijan Tadic | IT-Quereinsteiger</title>
   <style>
@@ -160,6 +160,29 @@
       color: #cfe3ff;
       font-size: 0.92rem;
       margin-bottom: 1.2rem;
+    }
+
+    .eyebrow-available {
+      border-color: rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.10);
+      color: #bbf7d0;
+      margin-left: 0.4rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-2);
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+      70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
     h1 {
@@ -372,6 +395,11 @@
       border: 1px solid rgba(148, 163, 184, 0.11);
     }
 
+    .timeline-item.highlight {
+      border-color: rgba(34, 197, 94, 0.35);
+      background: rgba(34, 197, 94, 0.05);
+    }
+
     .timeline-year {
       color: #cfe3ff;
       font-weight: 700;
@@ -520,11 +548,13 @@
       .cta-small { text-align: center; }
       .profile-note { grid-template-columns: 1fr; }
       .lab-banner { flex-direction: column; text-align: center; }
+      .eyebrow-available { margin-left: 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .btn-primary:hover { transform: none; }
+      .pulse-dot { animation: none; }
     }
   </style>
 </head>
@@ -561,9 +591,13 @@
     <div class="container hero-grid">
       <div class="hero-copy">
         <div class="eyebrow" data-i18n="hero-eyebrow">IT-Quereinsteiger aus der Schweiz</div>
+        <div class="eyebrow eyebrow-available">
+          <span class="pulse-dot"></span>
+          <span data-i18n="hero-available">Ab sofort verfügbar für eine neue Stelle</span>
+        </div>
         <h1 data-i18n="hero-title">Technischer Quereinsteiger mit echter Leidenschaft für IT.</h1>
         <p data-i18n="hero-description">
-          Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und vielen Jahren in der CNC-Fertigung habe ich mich bewusst entschieden, mein langjähriges Hobby zum Beruf zu machen. Heute bringe ich technische Praxiserfahrung, Verantwortungsbewusstsein und echtes Interesse an Linux, Netzwerken, Servern und Infrastruktur in meinen Weg in die IT ein.
+          Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und über 20 Jahren in der CNC-Fertigung habe ich mein langjähriges Hobby zum Beruf gemacht: Seit Mai 2026 absolviere ich die Umschulung zum ICT Power-User SIZ mit direkt anschliessendem ICT Professional SIZ (System & Netzwerk) – und konzentriere mich zu 100 % auf meinen Weg in die IT. Die Praxis dazu bringe ich aus meinem eigenen Homelab mit: Linux, Proxmox, Netzwerke, Security und Monitoring.
         </p>
 
         <div class="hero-actions">
@@ -578,11 +612,11 @@
           </div>
           <div class="fact">
             <strong data-i18n="fact-2-title">Homelab & IT</strong>
-            <span data-i18n="fact-2-desc">Linux, Proxmox, Netzwerke, Security und Self-Hosting</span>
+            <span data-i18n="fact-2-desc">Linux, Proxmox, Docker, Netzwerke, Security und Monitoring</span>
           </div>
           <div class="fact">
-            <strong data-i18n="fact-3-title">Klare Richtung</strong>
-            <span data-i18n="fact-3-desc">bewusster und langfristiger Einstieg in die IT-Branche</span>
+            <strong data-i18n="fact-3-title">In Umschulung</strong>
+            <span data-i18n="fact-3-desc">ICT Power-User & ICT Professional SIZ – gestartet im Mai 2026</span>
           </div>
         </div>
       </div>
@@ -599,7 +633,7 @@
           </div>
           <div class="mini-card">
             <strong data-i18n="profile-focus-label">Fokus</strong>
-            <span data-i18n="profile-focus-value">IT-Umschulung & Einstieg IT-Infrastruktur</span>
+            <span data-i18n="profile-focus-value">Umschulung ICT Power-User & Professional SIZ</span>
           </div>
         </div>
       </aside>
@@ -613,7 +647,7 @@
         <div class="lab-banner">
           <div class="lab-banner-text">
             <strong data-i18n="lab-banner-title">🛡️ Cybersecurity Homelab</strong>
-            <span data-i18n="lab-banner-desc">OPNsense · NordVPN · Tailscale · Vaultwarden · PiHole — selbst gebaut, dokumentiert auf GitHub</span>
+            <span data-i18n="lab-banner-desc">OPNsense · Suricata IDS · Grafana Monitoring · PiHole · Tailscale · Vaultwarden · CrowdSec — selbst gebaut, dokumentiert auf GitHub</span>
           </div>
           <a href="/lab.html" class="btn btn-primary" data-i18n="lab-banner-btn">Lab ansehen →</a>
         </div>
@@ -636,10 +670,10 @@
               Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Dort war ich über viele Jahre im Einrichten, Bedienen und Überwachen von Maschinen tätig. Qualität, Prozessverständnis und zuverlässiges Arbeiten gehörten dabei immer zu meinem Alltag.
             </p>
             <p data-i18n="about-p2">
-              Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich arbeite mit Linux-Systemen, virtualisierten Umgebungen, Netzwerken, Self-Hosting, Security-Grundlagen und eigener Infrastruktur im Homelab.
+              Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich betreibe ein eigenes Homelab mit Proxmox, OPNsense-Firewall, Docker-Services, Monitoring mit Grafana und InfluxDB sowie mehreren Linux-Systemen – aufgebaut, abgesichert und dokumentiert in Eigenregie.
             </p>
             <p data-i18n="about-p3">
-              Ich bin verheiratet und Vater eines kleinen Sohnes. Das gibt mir nicht nur Rückhalt, sondern verstärkt auch meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.
+              Seit Mai 2026 gehe ich diesen Weg konsequent weiter: In der Umschulung zum ICT Power-User SIZ und direkt anschliessend zum ICT Professional SIZ (System & Netzwerk) mache ich mein Hobby offiziell zum Beruf. Ich bin verheiratet und Vater eines kleinen Sohnes – das gibt mir Rückhalt und verstärkt meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.
             </p>
           </article>
 
@@ -666,8 +700,17 @@
         </div>
 
         <div class="panel timeline">
+          <article class="timeline-item highlight">
+            <div class="timeline-year">2026 – <span data-i18n="today">heute</span></div>
+            <div class="timeline-content">
+              <h3 data-i18n="job-0-title">Umschulung ICT Power-User & ICT Professional SIZ</h3>
+              <div class="meta" data-i18n="job-0-meta">IT-Umschulung · System & Netzwerk</div>
+              <p data-i18n="job-0-desc">Seit Mai 2026: ICT Power-User SIZ (7,5 Monate), direkt anschliessend ICT Professional SIZ (4,5 Monate). Schwerpunkte: Windows Server, Active Directory, Netzwerke, Support und IT-Security.</p>
+            </div>
+          </article>
+
           <article class="timeline-item">
-            <div class="timeline-year">2014 – <span data-i18n="today">heute</span></div>
+            <div class="timeline-year">2014 – 2026</div>
             <div class="timeline-content">
               <h3 data-i18n="job-1-title">CNC-Mechaniker</h3>
               <div class="meta">Stryker GmbH, Selzach</div>
@@ -728,20 +771,21 @@
           <article class="skill-card">
             <h3 data-i18n="skill-1-title">Linux & Server</h3>
             <div class="tags">
+              <span class="tag">Debian</span>
               <span class="tag">Linux Server</span>
               <span class="tag">SSH</span>
               <span class="tag" data-i18n="tag-rights">Benutzerrechte</span>
-              <span class="tag">Services</span>
               <span class="tag" data-i18n="tag-hardening">Systemhärtung</span>
               <span class="tag">Logs</span>
             </div>
           </article>
 
           <article class="skill-card">
-            <h3 data-i18n="skill-2-title">Virtualisierung</h3>
+            <h3 data-i18n="skill-2-title">Virtualisierung & Container</h3>
             <div class="tags">
               <span class="tag">Proxmox</span>
-              <span class="tag">VirtualBox</span>
+              <span class="tag">Docker</span>
+              <span class="tag">Portainer</span>
               <span class="tag" data-i18n="tag-vms">Virtuelle Maschinen</span>
               <span class="tag">Snapshots</span>
               <span class="tag" data-i18n="tag-testenv">Testumgebungen</span>
@@ -753,31 +797,35 @@
             <div class="tags">
               <span class="tag">LAN / WLAN / Mesh</span>
               <span class="tag">NAT</span>
-              <span class="tag" data-i18n="tag-vlan">VLAN-Grundlagen</span>
+              <span class="tag" data-i18n="tag-vlan">VLAN & Segmentierung</span>
+              <span class="tag">Kea DHCP</span>
               <span class="tag" data-i18n="tag-bridge">Netzwerkbrücken</span>
               <span class="tag" data-i18n="tag-acl">Zugriffskontrolle</span>
             </div>
           </article>
 
           <article class="skill-card">
-            <h3>Security</h3>
+            <h3 data-i18n="skill-4-title">Security</h3>
             <div class="tags">
+              <span class="tag">OPNsense</span>
+              <span class="tag">Suricata IDS</span>
+              <span class="tag">CrowdSec</span>
               <span class="tag">Fail2Ban</span>
-              <span class="tag">UFW</span>
               <span class="tag" data-i18n="tag-fw">Firewall-Regeln</span>
-              <span class="tag">Monitoring</span>
               <span class="tag" data-i18n="tag-cybersec">Cybersecurity-Grundlagen</span>
             </div>
           </article>
 
           <article class="skill-card">
-            <h3>Self-Hosting</h3>
+            <h3 data-i18n="skill-5-title">Monitoring & Self-Hosting</h3>
             <div class="tags">
-              <span class="tag">Nextcloud</span>
-              <span class="tag" data-i18n="tag-webserver">Webserver</span>
-              <span class="tag" data-i18n="tag-backup">Backups</span>
-              <span class="tag">DNS</span>
+              <span class="tag">Grafana</span>
+              <span class="tag">InfluxDB</span>
               <span class="tag">Pi-hole</span>
+              <span class="tag">Nextcloud</span>
+              <span class="tag">Samba NAS</span>
+              <span class="tag">Vaultwarden</span>
+              <span class="tag" data-i18n="tag-backup">Backups</span>
             </div>
           </article>
 
@@ -785,7 +833,8 @@
             <h3 data-i18n="skill-6-title">Remote Access & Projekte</h3>
             <div class="tags">
               <span class="tag">Tailscale</span>
-              <span class="tag">OpenVPN</span>
+              <span class="tag">WireGuard</span>
+              <span class="tag">Cloudflare Tunnel</span>
               <span class="tag">Raspberry Pi</span>
               <span class="tag" data-i18n="tag-auto">Automatisierungen</span>
               <span class="tag">Homelab</span>
@@ -811,7 +860,7 @@
               Ich habe mich bewusst entschieden, mein Hobby zum Beruf zu machen. Die IT fasziniert mich, weil sie technisches Denken, Problemlösung, Struktur und laufendes Lernen verbindet. Genau das sind Bereiche, in denen ich mich wiedererkenne.
             </p>
             <p data-i18n="motivation-p2">
-              Meine bisherigen Berufe haben mir Disziplin, Genauigkeit und Verantwortungsgefühl mitgegeben. Meine privaten IT-Projekte zeigen, dass ich mich eigenständig in komplexe Themen einarbeite und Dinge praktisch umsetzen kann. Diese Kombination möchte ich nun professionell in die IT-Branche einbringen.
+              Meine bisherigen Berufe haben mir Disziplin, Genauigkeit und Verantwortungsgefühl mitgegeben. Meine privaten IT-Projekte zeigen, dass ich mich eigenständig in komplexe Themen einarbeite und Dinge praktisch umsetzen kann. Diese Kombination bringe ich jetzt professionell in die IT-Branche ein – mit dem langfristigen Ziel Cybersecurity: Menschen und Systeme schützen.
             </p>
           </article>
 
@@ -850,7 +899,7 @@
           <div class="label" data-i18n="contact-label">Kontakt</div>
           <h2 data-i18n="contact-title">Ich freue mich über den Austausch.</h2>
           <p data-i18n="contact-subtitle">
-            Ob für eine IT-Umschulung, ein Gespräch oder eine Einstiegsposition: Ich freue mich darauf, mich persönlich vorzustellen.
+            Ob Festanstellung, Einstiegsposition oder einfach ein Austausch: Ich bin ab sofort verfügbar und freue mich darauf, mich persönlich vorzustellen.
           </p>
         </div>
 
@@ -911,26 +960,27 @@
 
         // Hero
         'hero-eyebrow': 'IT-Quereinsteiger aus der Schweiz',
+        'hero-available': 'Ab sofort verfügbar für eine neue Stelle',
         'hero-title': 'Technischer Quereinsteiger mit echter Leidenschaft für IT.',
-        'hero-description': 'Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und vielen Jahren in der CNC-Fertigung habe ich mich bewusst entschieden, mein langjähriges Hobby zum Beruf zu machen. Heute bringe ich technische Praxiserfahrung, Verantwortungsbewusstsein und echtes Interesse an Linux, Netzwerken, Servern und Infrastruktur in meinen Weg in die IT ein.',
+        'hero-description': 'Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und über 20 Jahren in der CNC-Fertigung habe ich mein langjähriges Hobby zum Beruf gemacht: Seit Mai 2026 absolviere ich die Umschulung zum ICT Power-User SIZ mit direkt anschliessendem ICT Professional SIZ (System & Netzwerk) – und konzentriere mich zu 100 % auf meinen Weg in die IT. Die Praxis dazu bringe ich aus meinem eigenen Homelab mit: Linux, Proxmox, Netzwerke, Security und Monitoring.',
         'hero-btn-contact': 'Kontakt aufnehmen',
         'hero-btn-cv': 'Lebenslauf ansehen',
         'fact-1-title': '20+ Jahre',
         'fact-1-desc': 'technische Berufserfahrung mit Verantwortung und Präzision',
         'fact-2-title': 'Homelab & IT',
-        'fact-2-desc': 'Linux, Proxmox, Netzwerke, Security und Self-Hosting',
-        'fact-3-title': 'Klare Richtung',
-        'fact-3-desc': 'bewusster und langfristiger Einstieg in die IT-Branche',
+        'fact-2-desc': 'Linux, Proxmox, Docker, Netzwerke, Security und Monitoring',
+        'fact-3-title': 'In Umschulung',
+        'fact-3-desc': 'ICT Power-User & ICT Professional SIZ – gestartet im Mai 2026',
 
         // Profile
         'profile-location-label': 'Standort',
         'profile-location-value': 'Oensingen, Schweiz',
         'profile-focus-label': 'Fokus',
-        'profile-focus-value': 'IT-Umschulung & Einstieg IT-Infrastruktur',
+        'profile-focus-value': 'Umschulung ICT Power-User & Professional SIZ',
 
         // Lab banner
         'lab-banner-title': '🛡️ Cybersecurity Homelab',
-        'lab-banner-desc': 'OPNsense · NordVPN · Tailscale · Vaultwarden · PiHole — selbst gebaut, dokumentiert auf GitHub',
+        'lab-banner-desc': 'OPNsense · Suricata IDS · Grafana Monitoring · PiHole · Tailscale · Vaultwarden · CrowdSec — selbst gebaut, dokumentiert auf GitHub',
         'lab-banner-btn': 'Lab ansehen →',
 
         // About
@@ -938,8 +988,8 @@
         'about-title': 'Ein technischer Hintergrund, der hervorragend zur IT passt.',
         'about-subtitle': 'Mein bisheriger Berufsweg ist kein Umweg, sondern ein solides Fundament. Ich komme aus Berufen, in denen Genauigkeit, Verantwortung, sauberes Arbeiten und technisches Verständnis jeden Tag zählen.',
         'about-p1': 'Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Dort war ich über viele Jahre im Einrichten, Bedienen und Überwachen von Maschinen tätig. Qualität, Prozessverständnis und zuverlässiges Arbeiten gehörten dabei immer zu meinem Alltag.',
-        'about-p2': 'Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich arbeite mit Linux-Systemen, virtualisierten Umgebungen, Netzwerken, Self-Hosting, Security-Grundlagen und eigener Infrastruktur im Homelab.',
-        'about-p3': 'Ich bin verheiratet und Vater eines kleinen Sohnes. Das gibt mir nicht nur Rückhalt, sondern verstärkt auch meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.',
+        'about-p2': 'Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich betreibe ein eigenes Homelab mit Proxmox, OPNsense-Firewall, Docker-Services, Monitoring mit Grafana und InfluxDB sowie mehreren Linux-Systemen – aufgebaut, abgesichert und dokumentiert in Eigenregie.',
+        'about-p3': 'Seit Mai 2026 gehe ich diesen Weg konsequent weiter: In der Umschulung zum ICT Power-User SIZ und direkt anschliessend zum ICT Professional SIZ (System & Netzwerk) mache ich mein Hobby offiziell zum Beruf. Ich bin verheiratet und Vater eines kleinen Sohnes – das gibt mir Rückhalt und verstärkt meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.',
         'bullet-1-title': 'Technisch geprägt:',
         'bullet-1-desc': 'Viele Jahre praktische Erfahrung in mechanischen und industriellen Arbeitsumgebungen.',
         'bullet-2-title': 'Strukturiert:',
@@ -954,6 +1004,9 @@
         'career-title': 'Von der Mechanik über CNC bis zur IT.',
         'career-subtitle': 'Meine Laufbahn zeigt, dass ich Verantwortung übernehmen kann, technische Zusammenhänge verstehe und mich in anspruchsvollen Umgebungen bewährt habe.',
         'today': 'heute',
+        'job-0-title': 'Umschulung ICT Power-User & ICT Professional SIZ',
+        'job-0-meta': 'IT-Umschulung · System & Netzwerk',
+        'job-0-desc': 'Seit Mai 2026: ICT Power-User SIZ (7,5 Monate), direkt anschliessend ICT Professional SIZ (4,5 Monate). Schwerpunkte: Windows Server, Active Directory, Netzwerke, Support und IT-Security.',
         'job-1-title': 'CNC-Mechaniker',
         'job-1-desc': 'Einrichten von Langdrehmaschinen, Qualitätsprüfungen, Programmoptimierungen und Einführung neuer Mitarbeitender.',
         'job-2-title': 'CNC-Mechaniker',
@@ -970,19 +1023,20 @@
         'skills-title': 'Hands-on-Erfahrung aus eigenen Projekten.',
         'skills-subtitle': 'Ich lerne nicht nur theoretisch. Ich setze Dinge praktisch um, betreibe eigene Systeme und beschäftige mich aktiv mit Infrastruktur, Sicherheit und Stabilität.',
         'skill-1-title': 'Linux & Server',
-        'skill-2-title': 'Virtualisierung',
+        'skill-2-title': 'Virtualisierung & Container',
         'skill-3-title': 'Netzwerke',
+        'skill-4-title': 'Security',
+        'skill-5-title': 'Monitoring & Self-Hosting',
         'skill-6-title': 'Remote Access & Projekte',
         'tag-rights': 'Benutzerrechte',
         'tag-hardening': 'Systemhärtung',
         'tag-vms': 'Virtuelle Maschinen',
         'tag-testenv': 'Testumgebungen',
-        'tag-vlan': 'VLAN-Grundlagen',
+        'tag-vlan': 'VLAN & Segmentierung',
         'tag-bridge': 'Netzwerkbrücken',
         'tag-acl': 'Zugriffskontrolle',
         'tag-fw': 'Firewall-Regeln',
         'tag-cybersec': 'Cybersecurity-Grundlagen',
-        'tag-webserver': 'Webserver',
         'tag-backup': 'Backups',
         'tag-auto': 'Automatisierungen',
 
@@ -991,7 +1045,7 @@
         'motivation-title': 'Weil echtes Interesse auf praktische Erfahrung trifft.',
         'motivation-subtitle': 'Mein Ziel ist nicht einfach ein Branchenwechsel, sondern der Aufbau einer langfristigen beruflichen Zukunft in einem Bereich, für den ich schon heute Zeit, Energie und Eigeninitiative investiere.',
         'motivation-p1': 'Ich habe mich bewusst entschieden, mein Hobby zum Beruf zu machen. Die IT fasziniert mich, weil sie technisches Denken, Problemlösung, Struktur und laufendes Lernen verbindet. Genau das sind Bereiche, in denen ich mich wiedererkenne.',
-        'motivation-p2': 'Meine bisherigen Berufe haben mir Disziplin, Genauigkeit und Verantwortungsgefühl mitgegeben. Meine privaten IT-Projekte zeigen, dass ich mich eigenständig in komplexe Themen einarbeite und Dinge praktisch umsetzen kann. Diese Kombination möchte ich nun professionell in die IT-Branche einbringen.',
+        'motivation-p2': 'Meine bisherigen Berufe haben mir Disziplin, Genauigkeit und Verantwortungsgefühl mitgegeben. Meine privaten IT-Projekte zeigen, dass ich mich eigenständig in komplexe Themen einarbeite und Dinge praktisch umsetzen kann. Diese Kombination bringe ich jetzt professionell in die IT-Branche ein – mit dem langfristigen Ziel Cybersecurity: Menschen und Systeme schützen.',
         'mot-1-title': 'Praxisnah:',
         'mot-1-desc': 'Ich arbeite gern direkt an Systemen, Problemen und Lösungen.',
         'mot-2-title': 'Lernbereit:',
@@ -1013,7 +1067,7 @@
         // Contact
         'contact-label': 'Kontakt',
         'contact-title': 'Ich freue mich über den Austausch.',
-        'contact-subtitle': 'Ob für eine IT-Umschulung, ein Gespräch oder eine Einstiegsposition: Ich freue mich darauf, mich persönlich vorzustellen.',
+        'contact-subtitle': 'Ob Festanstellung, Einstiegsposition oder einfach ein Austausch: Ich bin ab sofort verfügbar und freue mich darauf, mich persönlich vorzustellen.',
         'contact-p1': 'Diese Seite ist bewusst klar und direkt aufgebaut. Sie soll zeigen, wer ich bin, was ich mitbringe und warum mein Einstieg in die IT ein logischer nächster Schritt ist.',
         'contact-btn-email': 'E-Mail schreiben',
         'contact-btn-phone': 'Anrufen',
@@ -1034,26 +1088,27 @@
 
         // Hero
         'hero-eyebrow': 'Career changer from Switzerland',
+        'hero-available': 'Available immediately for a new position',
         'hero-title': 'Technical career changer with a genuine passion for IT.',
-        'hero-description': 'I\'m Andrijan Tadic. After my training as an automotive mechanic and many years in CNC manufacturing, I made the deliberate decision to turn my long-time hobby into a career. I bring hands-on technical experience, a strong sense of responsibility and genuine interest in Linux, networking, servers and infrastructure.',
+        'hero-description': 'I\'m Andrijan Tadic. After my training as an automotive mechanic and more than 20 years in CNC manufacturing, I\'ve turned my long-time hobby into a career: since May 2026 I\'ve been retraining as an ICT Power-User SIZ, followed directly by the ICT Professional SIZ (systems & networking) — fully focused on my path into IT. The hands-on experience comes from my own homelab: Linux, Proxmox, networking, security and monitoring.',
         'hero-btn-contact': 'Get in touch',
         'hero-btn-cv': 'View CV',
         'fact-1-title': '20+ years',
         'fact-1-desc': 'of technical professional experience with responsibility and precision',
         'fact-2-title': 'Homelab & IT',
-        'fact-2-desc': 'Linux, Proxmox, networking, security and self-hosting',
-        'fact-3-title': 'Clear direction',
-        'fact-3-desc': 'a deliberate and long-term entry into the IT industry',
+        'fact-2-desc': 'Linux, Proxmox, Docker, networking, security and monitoring',
+        'fact-3-title': 'Retraining now',
+        'fact-3-desc': 'ICT Power-User & ICT Professional SIZ — started May 2026',
 
         // Profile
         'profile-location-label': 'Location',
         'profile-location-value': 'Oensingen, Switzerland',
         'profile-focus-label': 'Focus',
-        'profile-focus-value': 'IT retraining & infrastructure entry',
+        'profile-focus-value': 'Retraining: ICT Power-User & Professional SIZ',
 
         // Lab banner
         'lab-banner-title': '🛡️ Cybersecurity Homelab',
-        'lab-banner-desc': 'OPNsense · NordVPN · Tailscale · Vaultwarden · PiHole — built from scratch, documented on GitHub',
+        'lab-banner-desc': 'OPNsense · Suricata IDS · Grafana monitoring · PiHole · Tailscale · Vaultwarden · CrowdSec — built from scratch, documented on GitHub',
         'lab-banner-btn': 'View the Lab →',
 
         // About
@@ -1061,8 +1116,8 @@
         'about-title': 'A technical background that fits IT perfectly.',
         'about-subtitle': 'My career path so far isn\'t a detour — it\'s a solid foundation. I come from professions where precision, responsibility, clean work and technical understanding matter every single day.',
         'about-p1': 'After my 4-year apprenticeship as an automotive mechanic, I worked in that field before transitioning into CNC manufacturing. For many years I was responsible for setting up, operating and monitoring machines. Quality, process understanding and reliable work were always central to my daily work.',
-        'about-p2': 'In parallel, I have intensively explored IT on my own. Over the years it has become much more than a hobby: I work with Linux systems, virtualised environments, networks, self-hosting, security fundamentals and my own homelab infrastructure.',
-        'about-p3': 'I am married and father of a young son. This gives me not only support but also reinforces my desire to pursue a long-term and clear career path in IT.',
+        'about-p2': 'In parallel, I have intensively explored IT on my own. Over the years it has become much more than a hobby: I run my own homelab with Proxmox, an OPNsense firewall, Docker services, monitoring with Grafana and InfluxDB, and several Linux systems — built, hardened and documented entirely on my own.',
+        'about-p3': 'Since May 2026 I\'ve been taking this path consistently further: through the retraining as ICT Power-User SIZ, directly followed by the ICT Professional SIZ (systems & networking), I\'m officially turning my hobby into my profession. I am married and father of a young son — this gives me support and reinforces my desire to pursue a long-term and clear career path in IT.',
         'bullet-1-title': 'Technically shaped:',
         'bullet-1-desc': 'Many years of hands-on experience in mechanical and industrial environments.',
         'bullet-2-title': 'Structured:',
@@ -1077,6 +1132,9 @@
         'career-title': 'From mechanics to CNC to IT.',
         'career-subtitle': 'My career demonstrates that I can take on responsibility, understand technical connections and perform well in demanding environments.',
         'today': 'present',
+        'job-0-title': 'Retraining: ICT Power-User & ICT Professional SIZ',
+        'job-0-meta': 'IT retraining · systems & networking',
+        'job-0-desc': 'Since May 2026: ICT Power-User SIZ (7.5 months), directly followed by ICT Professional SIZ (4.5 months). Focus: Windows Server, Active Directory, networking, support and IT security.',
         'job-1-title': 'CNC Machinist',
         'job-1-desc': 'Setting up long-turning machines, quality inspections, program optimisation and training new employees.',
         'job-2-title': 'CNC Machinist',
@@ -1093,19 +1151,20 @@
         'skills-title': 'Hands-on experience from personal projects.',
         'skills-subtitle': 'I don\'t just learn in theory. I implement things practically, run my own systems and actively work with infrastructure, security and stability.',
         'skill-1-title': 'Linux & Servers',
-        'skill-2-title': 'Virtualisation',
+        'skill-2-title': 'Virtualisation & Containers',
         'skill-3-title': 'Networking',
+        'skill-4-title': 'Security',
+        'skill-5-title': 'Monitoring & Self-Hosting',
         'skill-6-title': 'Remote Access & Projects',
         'tag-rights': 'User permissions',
         'tag-hardening': 'System hardening',
         'tag-vms': 'Virtual Machines',
         'tag-testenv': 'Test environments',
-        'tag-vlan': 'VLAN basics',
+        'tag-vlan': 'VLAN & segmentation',
         'tag-bridge': 'Network bridges',
         'tag-acl': 'Access control',
         'tag-fw': 'Firewall rules',
         'tag-cybersec': 'Cybersecurity basics',
-        'tag-webserver': 'Web server',
         'tag-backup': 'Backups',
         'tag-auto': 'Automations',
 
@@ -1114,7 +1173,7 @@
         'motivation-title': 'Because genuine interest meets practical experience.',
         'motivation-subtitle': 'My goal isn\'t simply a change of industry, but building a long-term professional future in a field where I already invest time, energy and initiative today.',
         'motivation-p1': 'I made the deliberate decision to turn my hobby into a career. IT fascinates me because it combines technical thinking, problem-solving, structure and continuous learning — exactly the areas I identify with.',
-        'motivation-p2': 'My previous professions gave me discipline, precision and a sense of responsibility. My personal IT projects demonstrate that I can independently work through complex topics and implement things in practice. I now want to bring this combination professionally into the IT industry.',
+        'motivation-p2': 'My previous professions gave me discipline, precision and a sense of responsibility. My personal IT projects demonstrate that I can independently work through complex topics and implement things in practice. I\'m now bringing this combination professionally into the IT industry — with the long-term goal of cybersecurity: protecting people and systems.',
         'mot-1-title': 'Hands-on:',
         'mot-1-desc': 'I enjoy working directly with systems, problems and solutions.',
         'mot-2-title': 'Eager to learn:',
@@ -1136,7 +1195,7 @@
         // Contact
         'contact-label': 'Contact',
         'contact-title': 'I look forward to connecting.',
-        'contact-subtitle': 'Whether for an IT retraining, a conversation or an entry-level position: I look forward to introducing myself personally.',
+        'contact-subtitle': 'Whether for a permanent position, an entry-level role or simply a conversation: I\'m available immediately and look forward to introducing myself personally.',
         'contact-p1': 'This page is intentionally clear and direct. It\'s meant to show who I am, what I bring and why my entry into IT is a logical next step.',
         'contact-btn-email': 'Send an email',
         'contact-btn-phone': 'Call me',
