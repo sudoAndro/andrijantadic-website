@@ -723,6 +723,10 @@
           <h4 data-i18n="lesson-8-title">🕳️ DNS takes its own path</h4>
           <p data-i18n="lesson-8-desc">Traffic in the tunnel ≠ DNS in the tunnel. The leak test showed my real IP while every connection was safely tunneled. Fix: DHCP points at PiHole, firewall allows only port 53.</p>
         </div>
+        <div class="lesson-card red">
+          <h4 data-i18n="lesson-9-title">🛑 A kill switch needs a kill test</h4>
+          <p data-i18n="lesson-9-desc">When a VPN gateway went down, traffic silently fell back to WAN — real IP exposed. One hidden setting ("Skip rules when gateway is down") made the kill switch actually kill. Trust the test, not the config.</p>
+        </div>
       </div>
 
       <p class="lessons-link">
@@ -835,6 +839,8 @@
         'lesson-7-desc': 'Firewall rules were configured perfectly — and inactive. OPNsense stages changes until you hit Apply. 20 minutes of debugging a config that was already right.',
         'lesson-8-title': '🕳️ DNS takes its own path',
         'lesson-8-desc': 'Traffic in the tunnel ≠ DNS in the tunnel. The leak test showed my real IP while every connection was safely tunneled. Fix: DHCP points at PiHole, firewall allows only port 53.',
+        'lesson-9-title': '🛑 A kill switch needs a kill test',
+        'lesson-9-desc': 'When a VPN gateway went down, traffic silently fell back to WAN — real IP exposed. One hidden setting ("Skip rules when gateway is down") made the kill switch actually kill. Trust the test, not the config.',
         'lessons-full': 'Full details in',
         'lessons-github': 'on GitHub.',
 
@@ -918,6 +924,8 @@
         'lesson-7-desc': 'Firewall-Regeln waren perfekt konfiguriert – und inaktiv. OPNsense hält Änderungen zurück, bis man Anwenden klickt. 20 Minuten Debugging einer Config, die schon richtig war.',
         'lesson-8-title': '🕳️ DNS geht eigene Wege',
         'lesson-8-desc': 'Traffic im Tunnel ≠ DNS im Tunnel. Der Leak-Test zeigte meine echte IP, während jede Verbindung sauber getunnelt war. Fix: DHCP zeigt auf PiHole, Firewall erlaubt nur Port 53.',
+        'lesson-9-title': '🛑 Ein Kill Switch braucht einen Kill-Test',
+        'lesson-9-desc': 'Als ein VPN-Gateway ausfiel, floss der Traffic still übers WAN — echte IP sichtbar. Eine versteckte Einstellung ("Regeln überspringen, wenn Gateway ausgefallen") machte aus dem Kill Switch einen echten. Dem Test vertrauen, nicht der Config.',
         'lessons-full': 'Alle Details in',
         'lessons-github': 'auf GitHub.',
 
