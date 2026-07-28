@@ -439,18 +439,26 @@
 
     .strengths {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.9rem;
     }
 
     .strength {
-      padding: 1rem;
+      min-width: 0;
+      padding: 1rem 0.85rem;
       border-radius: 18px;
       text-align: center;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(148, 163, 184, 0.11);
       font-weight: 600;
+      font-size: 0.95rem;
+      line-height: 1.35;
       color: #dbe9fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
 
     .contact-list { display: grid; gap: 0.8rem; }
@@ -518,9 +526,10 @@
     }
 
     @media (max-width: 980px) {
-      .hero-grid, .about-grid, .motivation-grid, .contact-grid, .skills-grid, .strengths {
+      .hero-grid, .about-grid, .motivation-grid, .contact-grid, .skills-grid {
         grid-template-columns: 1fr;
       }
+      .strengths { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .hero { padding-top: 3.8rem; }
       .hero-facts { grid-template-columns: 1fr; }
       .timeline-item { grid-template-columns: 1fr; }
@@ -556,6 +565,112 @@
       .btn-primary:hover { transform: none; }
       .pulse-dot { animation: none; }
     }
+
+    /* ===================== ANIMATIONEN ===================== */
+    .hero { position: relative; }
+    .hero > .container { position: relative; z-index: 2; }
+    #constellation {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    body.anim #constellation { opacity: 1; }
+
+    .termline {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 1rem; color: #bbf7d0;
+      margin: 0 0 1.1rem; min-height: 1.6em;
+      word-break: break-word;
+    }
+    .termline .prompt { color: var(--accent); }
+    .caret {
+      display: inline-block; width: 9px; height: 1.05em;
+      vertical-align: -0.18em; background: var(--accent-2);
+      margin-left: 3px; opacity: 0;
+    }
+    body.anim .caret { opacity: 1; animation: blink 1.05s step-end infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    body.anim .reveal {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity 720ms cubic-bezier(.22,.8,.28,1),
+                  transform 720ms cubic-bezier(.22,.8,.28,1);
+    }
+    body.anim .reveal.in { opacity: 1; transform: none; }
+
+    body.anim .fact,
+    body.anim .skill-card,
+    body.anim .timeline-item,
+    body.anim .strength { transition: 260ms ease; }
+
+    body.anim .fact:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96, 165, 250, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+    }
+    body.anim .skill-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(96, 165, 250, 0.38);
+      box-shadow: 0 18px 40px rgba(2, 8, 20, 0.5);
+    }
+    body.anim .timeline-item:hover {
+      transform: translateX(6px);
+      border-color: rgba(96, 165, 250, 0.36);
+    }
+    body.anim .strength:hover {
+      transform: translateY(-3px);
+      border-color: rgba(34, 197, 94, 0.4);
+      background: rgba(34, 197, 94, 0.07);
+      color: #ffffff;
+    }
+
+    body.anim .tag { opacity: 0; transform: translateY(8px) scale(0.94); transition: 200ms ease; }
+    body.anim .in .tag { opacity: 1; transform: none; }
+    body.anim .tag:hover {
+      background: rgba(96, 165, 250, 0.26);
+      border-color: rgba(96, 165, 250, 0.5);
+      transform: translateY(-2px);
+    }
+
+    body.anim .btn:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(37, 99, 235, 0.34); }
+    body.anim .btn-primary { position: relative; overflow: hidden; }
+    body.anim .btn-primary::after {
+      content: ""; position: absolute; top: 0; left: -120%;
+      width: 60%; height: 100%; transform: skewX(-18deg);
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.28), transparent);
+    }
+    body.anim .btn-primary:hover::after { animation: sweep 720ms ease; }
+    @keyframes sweep { to { left: 130%; } }
+
+    .profile-card::after {
+      content: ""; position: absolute; inset: 0;
+      pointer-events: none; opacity: 0;
+      background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
+                  rgba(96, 165, 250, 0.20), transparent 62%);
+      transition: opacity 320ms ease;
+    }
+    body.anim .profile-card:hover::after { opacity: 1; }
+
+    body.anim .lab-banner { position: relative; overflow: hidden; }
+    body.anim .lab-banner::before {
+      content: ""; position: absolute; top: 0; bottom: 0;
+      width: 140px; left: -160px;
+      background: linear-gradient(90deg, transparent, rgba(96,165,250,0.16), transparent);
+      animation: scan 5.5s linear infinite;
+    }
+    @keyframes scan { to { left: 115%; } }
+
+    @media (max-width: 760px) {
+      .termline { font-size: 0.86rem; }
+      body.anim .timeline-item:hover { transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body.anim .reveal { opacity: 1; transform: none; }
+      body.anim .lab-banner::before,
+      body.anim .caret { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -588,6 +703,7 @@
   </header>
 
   <section class="hero" id="start">
+    <canvas id="constellation" aria-hidden="true"></canvas>
     <div class="container hero-grid">
       <div class="hero-copy">
         <div class="eyebrow" data-i18n="hero-eyebrow">IT-Quereinsteiger aus der Schweiz</div>
@@ -596,6 +712,7 @@
           <span data-i18n="hero-available">Ab sofort verfügbar für eine neue Stelle</span>
         </div>
         <h1 data-i18n="hero-title">Technischer Quereinsteiger mit echter Leidenschaft für IT.</h1>
+        <p class="termline"><span class="prompt">andro@lab:~$</span> <span id="typed"></span><span class="caret"></span></p>
         <p data-i18n="hero-description">
           Ich bin Andrijan Tadic. Nach meiner Lehre als Automechaniker und über 20 Jahren in der CNC-Fertigung habe ich mein langjähriges Hobby zum Beruf gemacht: Seit Mai 2026 absolviere ich die Umschulung zum ICT Power-User SIZ mit direkt anschliessendem ICT Professional SIZ (System & Netzwerk) – und konzentriere mich zu 100 % auf meinen Weg in die IT. Die Praxis dazu bringe ich aus meinem eigenen Homelab mit: Linux, Proxmox, Netzwerke, Security und Monitoring.
         </p>
@@ -608,7 +725,7 @@
         <div class="hero-facts" aria-label="Kurzüberblick">
           <div class="fact">
             <strong data-i18n="fact-1-title">20+ Jahre</strong>
-            <span data-i18n="fact-1-desc">technische Berufserfahrung mit Verantwortung und Präzision</span>
+            <span data-i18n="fact-1-desc">technische Berufserfahrung – zuletzt 12 Jahre Medizintechnik unter GMP-Vorgaben</span>
           </div>
           <div class="fact">
             <strong data-i18n="fact-2-title">Homelab & IT</strong>
@@ -644,7 +761,7 @@
     <!-- Lab-Banner -->
     <section id="lab-showcase" style="padding: 0 0 0.5rem;">
       <div class="container">
-        <div class="lab-banner">
+        <div class="lab-banner reveal">
           <div class="lab-banner-text">
             <strong data-i18n="lab-banner-title">🛡️ Cybersecurity Homelab</strong>
             <span data-i18n="lab-banner-desc">OPNsense · Suricata IDS · Grafana Monitoring · PiHole · Tailscale · Vaultwarden · CrowdSec — selbst gebaut, dokumentiert auf GitHub</span>
@@ -656,7 +773,7 @@
 
     <section id="ueber-mich">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="label" data-i18n="about-label">Über mich</div>
           <h2 data-i18n="about-title">Ein technischer Hintergrund, der hervorragend zur IT passt.</h2>
           <p data-i18n="about-subtitle">
@@ -665,9 +782,9 @@
         </div>
 
         <div class="about-grid">
-          <article class="panel about-text">
+          <article class="panel about-text reveal">
             <p data-i18n="about-p1">
-              Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Dort war ich über viele Jahre im Einrichten, Bedienen und Überwachen von Maschinen tätig. Qualität, Prozessverständnis und zuverlässiges Arbeiten gehörten dabei immer zu meinem Alltag.
+              Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Zuletzt war ich zwölf Jahre in der Medizintechnik tätig – einem streng regulierten Umfeld, in dem nach GMP-Vorgaben gearbeitet, jeder Prüfschritt dokumentiert und jeder Fehler nachvollziehbar wird. Genau dort habe ich gelernt, was Sorgfalt, Nachvollziehbarkeit und Verantwortung im Arbeitsalltag wirklich bedeuten.
             </p>
             <p data-i18n="about-p2">
               Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich betreibe ein eigenes Homelab mit Proxmox, OPNsense-Firewall, Docker-Services, Monitoring mit Grafana und InfluxDB sowie mehreren Linux-Systemen – aufgebaut, abgesichert und dokumentiert in Eigenregie.
@@ -683,6 +800,7 @@
               <li><strong data-i18n="bullet-2-title">Strukturiert:</strong> <span data-i18n="bullet-2-desc">Gewohnt, sauber, genau und lösungsorientiert zu arbeiten.</span></li>
               <li><strong data-i18n="bullet-3-title">Eigeninitiativ:</strong> <span data-i18n="bullet-3-desc">IT-Wissen über eigene Projekte und konsequentes Lernen aufgebaut.</span></li>
               <li><strong data-i18n="bullet-4-title">Langfristig motiviert:</strong> <span data-i18n="bullet-4-desc">Kein spontaner Wechsel, sondern ein bewusster nächster Karriereschritt.</span></li>
+              <li><strong data-i18n="bullet-5-title">Sicherheitsbewusst:</strong> <span data-i18n="bullet-5-desc">Aus 12 Jahren Medizintechnik gewohnt, nach Vorgaben zu arbeiten und lückenlos zu dokumentieren.</span></li>
             </ul>
           </aside>
         </div>
@@ -691,7 +809,7 @@
 
     <section id="berufsweg">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="label" data-i18n="career-label">Beruflicher Weg</div>
           <h2 data-i18n="career-title">Von der Mechanik über CNC bis zur IT.</h2>
           <p data-i18n="career-subtitle">
@@ -700,7 +818,7 @@
         </div>
 
         <div class="panel timeline">
-          <article class="timeline-item highlight">
+          <article class="timeline-item highlight reveal">
             <div class="timeline-year">2026 – <span data-i18n="today">heute</span></div>
             <div class="timeline-content">
               <h3 data-i18n="job-0-title">Umschulung ICT Power-User & ICT Professional SIZ</h3>
@@ -709,16 +827,16 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <div class="timeline-year">2014 – 2026</div>
             <div class="timeline-content">
-              <h3 data-i18n="job-1-title">CNC-Mechaniker</h3>
-              <div class="meta">Stryker GmbH, Selzach</div>
-              <p data-i18n="job-1-desc">Einrichten von Langdrehmaschinen, Qualitätsprüfungen, Programmoptimierungen und Einführung neuer Mitarbeitender.</p>
+              <h3 data-i18n="job-1-title">CNC-Mechaniker / Technical Worker</h3>
+              <div class="meta" data-i18n="job-1-meta">Stryker GmbH, Selzach · Medizintechnik</div>
+              <p data-i18n="job-1-desc">Selbständige Störungsdiagnose und -behebung an CNC-Langdrehmaschinen, strukturierte Dokumentation aller Mess- und Prüfergebnisse im digitalen SPC-System (Babtec) sowie Qualitätskontrolle medizinischer Produkte – durchgehend nach strengen GMP-Vorgaben in einem regulierten, sicherheitskritischen Umfeld. Zusätzlich Einführung neuer Mitarbeitender und Funktion als Betriebssanitäter.</p>
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <div class="timeline-year">2008 – 2014</div>
             <div class="timeline-content">
               <h3 data-i18n="job-2-title">CNC-Mechaniker</h3>
@@ -727,7 +845,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <div class="timeline-year">2007 – 2008</div>
             <div class="timeline-content">
               <h3 data-i18n="job-3-title">CNC-Maschinist</h3>
@@ -736,7 +854,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <div class="timeline-year">2006 – 2007</div>
             <div class="timeline-content">
               <h3 data-i18n="job-4-title">Automechaniker</h3>
@@ -745,7 +863,7 @@
             </div>
           </article>
 
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <div class="timeline-year">2002 – 2006</div>
             <div class="timeline-content">
               <h3 data-i18n="job-5-title">Lehre als Automechaniker</h3>
@@ -759,7 +877,7 @@
 
     <section id="it-kompetenzen">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="label" data-i18n="skills-label">IT-Kompetenzen & Homelab</div>
           <h2 data-i18n="skills-title">Hands-on-Erfahrung aus eigenen Projekten.</h2>
           <p data-i18n="skills-subtitle">
@@ -768,7 +886,7 @@
         </div>
 
         <div class="panel skills-grid">
-          <article class="skill-card">
+          <article class="skill-card reveal">
             <h3 data-i18n="skill-1-title">Linux & Server</h3>
             <div class="tags">
               <span class="tag">Debian</span>
@@ -780,7 +898,7 @@
             </div>
           </article>
 
-          <article class="skill-card">
+          <article class="skill-card reveal">
             <h3 data-i18n="skill-2-title">Virtualisierung & Container</h3>
             <div class="tags">
               <span class="tag">Proxmox</span>
@@ -792,7 +910,7 @@
             </div>
           </article>
 
-          <article class="skill-card">
+          <article class="skill-card reveal">
             <h3 data-i18n="skill-3-title">Netzwerke</h3>
             <div class="tags">
               <span class="tag">LAN / WLAN / Mesh</span>
@@ -804,7 +922,7 @@
             </div>
           </article>
 
-          <article class="skill-card">
+          <article class="skill-card reveal">
             <h3 data-i18n="skill-4-title">Security</h3>
             <div class="tags">
               <span class="tag">OPNsense</span>
@@ -816,7 +934,7 @@
             </div>
           </article>
 
-          <article class="skill-card">
+          <article class="skill-card reveal">
             <h3 data-i18n="skill-5-title">Monitoring & Self-Hosting</h3>
             <div class="tags">
               <span class="tag">Grafana</span>
@@ -829,7 +947,7 @@
             </div>
           </article>
 
-          <article class="skill-card">
+          <article class="skill-card reveal">
             <h3 data-i18n="skill-6-title">Remote Access & Projekte</h3>
             <div class="tags">
               <span class="tag">Tailscale</span>
@@ -846,7 +964,7 @@
 
     <section id="motivation">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="label" data-i18n="motivation-label">Warum IT?</div>
           <h2 data-i18n="motivation-title">Weil echtes Interesse auf praktische Erfahrung trifft.</h2>
           <p data-i18n="motivation-subtitle">
@@ -855,7 +973,7 @@
         </div>
 
         <div class="motivation-grid">
-          <article class="panel motivation-text">
+          <article class="panel motivation-text reveal">
             <p data-i18n="motivation-p1">
               Ich habe mich bewusst entschieden, mein Hobby zum Beruf zu machen. Die IT fasziniert mich, weil sie technisches Denken, Problemlösung, Struktur und laufendes Lernen verbindet. Genau das sind Bereiche, in denen ich mich wiedererkenne.
             </p>
@@ -878,24 +996,28 @@
 
     <section id="staerken">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="label" data-i18n="strengths-label">Stärken</div>
           <h2 data-i18n="strengths-title">Eigenschaften, auf die man sich verlassen kann.</h2>
+          <p data-i18n="strengths-subtitle">Eigenschaften, die sich über 20 Jahre in anspruchsvollen technischen Umgebungen bewährt haben.</p>
         </div>
 
-        <div class="panel strengths">
+        <div class="panel strengths reveal">
           <div class="strength" data-i18n="strength-1">Zuverlässig</div>
           <div class="strength" data-i18n="strength-2">Teamfähig</div>
           <div class="strength" data-i18n="strength-3">Selbständig</div>
           <div class="strength" data-i18n="strength-4">Problemlösungsorientiert</div>
           <div class="strength" data-i18n="strength-5">Schnelle Auffassungsgabe</div>
+          <div class="strength" data-i18n="strength-6">Sorgfältig & präzise</div>
+          <div class="strength" data-i18n="strength-7">Belastbar</div>
+          <div class="strength" data-i18n="strength-8">Verantwortungsbewusst</div>
         </div>
       </div>
     </section>
 
     <section id="kontakt">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="label" data-i18n="contact-label">Kontakt</div>
           <h2 data-i18n="contact-title">Ich freue mich über den Austausch.</h2>
           <p data-i18n="contact-subtitle">
@@ -904,7 +1026,7 @@
         </div>
 
         <div class="contact-grid">
-          <article class="panel contact-copy">
+          <article class="panel contact-copy reveal">
             <p data-i18n="contact-p1">
               Diese Seite ist bewusst klar und direkt aufgebaut. Sie soll zeigen, wer ich bin, was ich mitbringe und warum mein Einstieg in die IT ein logischer nächster Schritt ist.
             </p>
@@ -966,7 +1088,7 @@
         'hero-btn-contact': 'Kontakt aufnehmen',
         'hero-btn-cv': 'Lebenslauf ansehen',
         'fact-1-title': '20+ Jahre',
-        'fact-1-desc': 'technische Berufserfahrung mit Verantwortung und Präzision',
+        'fact-1-desc': 'technische Berufserfahrung – zuletzt 12 Jahre Medizintechnik unter GMP-Vorgaben',
         'fact-2-title': 'Homelab & IT',
         'fact-2-desc': 'Linux, Proxmox, Docker, Netzwerke, Security und Monitoring',
         'fact-3-title': 'In Umschulung',
@@ -987,7 +1109,7 @@
         'about-label': 'Über mich',
         'about-title': 'Ein technischer Hintergrund, der hervorragend zur IT passt.',
         'about-subtitle': 'Mein bisheriger Berufsweg ist kein Umweg, sondern ein solides Fundament. Ich komme aus Berufen, in denen Genauigkeit, Verantwortung, sauberes Arbeiten und technisches Verständnis jeden Tag zählen.',
-        'about-p1': 'Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Dort war ich über viele Jahre im Einrichten, Bedienen und Überwachen von Maschinen tätig. Qualität, Prozessverständnis und zuverlässiges Arbeiten gehörten dabei immer zu meinem Alltag.',
+        'about-p1': 'Nach meiner 4-jährigen Lehre als Automechaniker habe ich zunächst in diesem Beruf gearbeitet und anschliessend in die CNC-Fertigung gewechselt. Zuletzt war ich zwölf Jahre in der Medizintechnik tätig – einem streng regulierten Umfeld, in dem nach GMP-Vorgaben gearbeitet, jeder Prüfschritt dokumentiert und jeder Fehler nachvollziehbar wird. Genau dort habe ich gelernt, was Sorgfalt, Nachvollziehbarkeit und Verantwortung im Arbeitsalltag wirklich bedeuten.',
         'about-p2': 'Parallel dazu habe ich mich privat intensiv mit IT beschäftigt. Über die Jahre ist daraus mehr als nur ein Hobby geworden: Ich betreibe ein eigenes Homelab mit Proxmox, OPNsense-Firewall, Docker-Services, Monitoring mit Grafana und InfluxDB sowie mehreren Linux-Systemen – aufgebaut, abgesichert und dokumentiert in Eigenregie.',
         'about-p3': 'Seit Mai 2026 gehe ich diesen Weg konsequent weiter: In der Umschulung zum ICT Power-User SIZ und direkt anschliessend zum ICT Professional SIZ (System & Netzwerk) mache ich mein Hobby offiziell zum Beruf. Ich bin verheiratet und Vater eines kleinen Sohnes – das gibt mir Rückhalt und verstärkt meinen Wunsch, beruflich einen langfristigen und klaren Weg in der IT zu gehen.',
         'bullet-1-title': 'Technisch geprägt:',
@@ -998,6 +1120,8 @@
         'bullet-3-desc': 'IT-Wissen über eigene Projekte und konsequentes Lernen aufgebaut.',
         'bullet-4-title': 'Langfristig motiviert:',
         'bullet-4-desc': 'Kein spontaner Wechsel, sondern ein bewusster nächster Karriereschritt.',
+        'bullet-5-title': 'Sicherheitsbewusst:',
+        'bullet-5-desc': 'Aus 12 Jahren Medizintechnik gewohnt, nach Vorgaben zu arbeiten und lückenlos zu dokumentieren.',
 
         // Career
         'career-label': 'Beruflicher Weg',
@@ -1007,8 +1131,9 @@
         'job-0-title': 'Umschulung ICT Power-User & ICT Professional SIZ',
         'job-0-meta': 'IT-Umschulung · System & Netzwerk',
         'job-0-desc': 'Seit Mai 2026: ICT Power-User SIZ (7,5 Monate), direkt anschliessend ICT Professional SIZ (4,5 Monate). Schwerpunkte: Windows Server, Active Directory, Netzwerke, Support und IT-Security.',
-        'job-1-title': 'CNC-Mechaniker',
-        'job-1-desc': 'Einrichten von Langdrehmaschinen, Qualitätsprüfungen, Programmoptimierungen und Einführung neuer Mitarbeitender.',
+        'job-1-title': 'CNC-Mechaniker / Technical Worker',
+        'job-1-meta': 'Stryker GmbH, Selzach · Medizintechnik',
+        'job-1-desc': 'Selbständige Störungsdiagnose und -behebung an CNC-Langdrehmaschinen, strukturierte Dokumentation aller Mess- und Prüfergebnisse im digitalen SPC-System (Babtec) sowie Qualitätskontrolle medizinischer Produkte – durchgehend nach strengen GMP-Vorgaben in einem regulierten, sicherheitskritischen Umfeld. Zusätzlich Einführung neuer Mitarbeitender und Funktion als Betriebssanitäter.',
         'job-2-title': 'CNC-Mechaniker',
         'job-2-desc': 'Einrichten und Bedienen verschiedener CNC-Maschinen, Qualitätsüberwachung, Korrekturmassnahmen und Laserbeschriftung.',
         'job-3-title': 'CNC-Maschinist',
@@ -1058,11 +1183,15 @@
         // Strengths
         'strengths-label': 'Stärken',
         'strengths-title': 'Eigenschaften, auf die man sich verlassen kann.',
+        'strengths-subtitle': 'Eigenschaften, die sich über 20 Jahre in anspruchsvollen technischen Umgebungen bewährt haben.',
         'strength-1': 'Zuverlässig',
         'strength-2': 'Teamfähig',
         'strength-3': 'Selbständig',
         'strength-4': 'Problemlösungsorientiert',
         'strength-5': 'Schnelle Auffassungsgabe',
+        'strength-6': 'Sorgfältig & präzise',
+        'strength-7': 'Belastbar',
+        'strength-8': 'Verantwortungsbewusst',
 
         // Contact
         'contact-label': 'Kontakt',
@@ -1094,7 +1223,7 @@
         'hero-btn-contact': 'Get in touch',
         'hero-btn-cv': 'View CV',
         'fact-1-title': '20+ years',
-        'fact-1-desc': 'of technical professional experience with responsibility and precision',
+        'fact-1-desc': 'of technical experience — the last 12 in medical device manufacturing under GMP rules',
         'fact-2-title': 'Homelab & IT',
         'fact-2-desc': 'Linux, Proxmox, Docker, networking, security and monitoring',
         'fact-3-title': 'Retraining now',
@@ -1115,7 +1244,7 @@
         'about-label': 'About me',
         'about-title': 'A technical background that fits IT perfectly.',
         'about-subtitle': 'My career path so far isn\'t a detour — it\'s a solid foundation. I come from professions where precision, responsibility, clean work and technical understanding matter every single day.',
-        'about-p1': 'After my 4-year apprenticeship as an automotive mechanic, I worked in that field before transitioning into CNC manufacturing. For many years I was responsible for setting up, operating and monitoring machines. Quality, process understanding and reliable work were always central to my daily work.',
+        'about-p1': 'After my 4-year apprenticeship as an automotive mechanic, I worked in that field before transitioning into CNC manufacturing. For the last twelve years I worked in medical device manufacturing — a strictly regulated environment where every process follows GMP rules, every inspection step is documented and every deviation must be traceable. That is where I learned what diligence, traceability and responsibility really mean in day-to-day work.',
         'about-p2': 'In parallel, I have intensively explored IT on my own. Over the years it has become much more than a hobby: I run my own homelab with Proxmox, an OPNsense firewall, Docker services, monitoring with Grafana and InfluxDB, and several Linux systems — built, hardened and documented entirely on my own.',
         'about-p3': 'Since May 2026 I\'ve been taking this path consistently further: through the retraining as ICT Power-User SIZ, directly followed by the ICT Professional SIZ (systems & networking), I\'m officially turning my hobby into my profession. I am married and father of a young son — this gives me support and reinforces my desire to pursue a long-term and clear career path in IT.',
         'bullet-1-title': 'Technically shaped:',
@@ -1126,6 +1255,8 @@
         'bullet-3-desc': 'Built IT knowledge through personal projects and consistent self-learning.',
         'bullet-4-title': 'Long-term motivated:',
         'bullet-4-desc': 'Not a spontaneous switch, but a deliberate next career step.',
+        'bullet-5-title': 'Security-minded:',
+        'bullet-5-desc': 'Twelve years in medical device manufacturing taught me to work to spec and document everything without gaps.',
 
         // Career
         'career-label': 'Career path',
@@ -1135,8 +1266,9 @@
         'job-0-title': 'Retraining: ICT Power-User & ICT Professional SIZ',
         'job-0-meta': 'IT retraining · systems & networking',
         'job-0-desc': 'Since May 2026: ICT Power-User SIZ (7.5 months), directly followed by ICT Professional SIZ (4.5 months). Focus: Windows Server, Active Directory, networking, support and IT security.',
-        'job-1-title': 'CNC Machinist',
-        'job-1-desc': 'Setting up long-turning machines, quality inspections, program optimisation and training new employees.',
+        'job-1-title': 'CNC Machinist / Technical Worker',
+        'job-1-meta': 'Stryker GmbH, Selzach · Medical devices',
+        'job-1-desc': 'Independent fault diagnosis and troubleshooting on CNC long-turning machines, structured documentation of all measurement and inspection results in the digital SPC system (Babtec), and quality control of medical products — consistently under strict GMP rules in a regulated, safety-critical environment. Additionally onboarding new employees and serving as an in-house first responder.',
         'job-2-title': 'CNC Machinist',
         'job-2-desc': 'Setting up and operating various CNC machines, quality monitoring, corrective actions and laser engraving.',
         'job-3-title': 'CNC Operator',
@@ -1186,11 +1318,15 @@
         // Strengths
         'strengths-label': 'Strengths',
         'strengths-title': 'Qualities you can rely on.',
+        'strengths-subtitle': 'Qualities proven over 20 years in demanding technical environments.',
         'strength-1': 'Reliable',
         'strength-2': 'Team player',
         'strength-3': 'Independent',
         'strength-4': 'Problem-solving oriented',
         'strength-5': 'Fast learner',
+        'strength-6': 'Diligent & precise',
+        'strength-7': 'Resilient under pressure',
+        'strength-8': 'Accountable',
 
         // Contact
         'contact-label': 'Contact',
@@ -1248,6 +1384,169 @@
         btn?.setAttribute('aria-expanded', 'false');
       });
     });
+  </script>
+
+  <!-- ==================== ANIMATIONEN ==================== -->
+  <script>
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.body.classList.add('anim');
+
+    /* --- Scroll-Reveal --- */
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        e.target.querySelectorAll('.tag').forEach(function (tag, i) {
+          tag.style.transitionDelay = (i * 55) + 'ms';
+        });
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    /* --- Zahlen hochzaehlen --- */
+    function animateCounters() {
+      document.querySelectorAll('.fact strong').forEach(function (el) {
+        var m = el.textContent.trim().match(/^(\d+)(.*)$/);
+        if (!m) return;
+        var target = parseInt(m[1], 10), rest = m[2], t0 = null;
+        requestAnimationFrame(function tick(now) {
+          if (t0 === null) t0 = now;
+          var p = Math.min((now - t0) / 1400, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + rest;
+          if (p < 1) requestAnimationFrame(tick);
+        });
+      });
+    }
+
+    /* --- Tippeffekt --- */
+    var phrases = {
+      de: ['systemctl status homelab.service', 'proxmox \u00b7 debian \u00b7 kali \u00b7 docker',
+           'opnsense + suricata ids + crowdsec', 'ziel: cybersecurity \u2014 menschen sch\u00fctzen'],
+      en: ['systemctl status homelab.service', 'proxmox \u00b7 debian \u00b7 kali \u00b7 docker',
+           'opnsense + suricata ids + crowdsec', 'goal: cybersecurity \u2014 protecting people']
+    };
+    var typed = document.getElementById('typed');
+    var pi = 0, ci = 0, deleting = false, timer = null;
+
+    function type() {
+      if (!typed) return;
+      var set = phrases[document.documentElement.lang.indexOf('en') === 0 ? 'en' : 'de'];
+      var word = set[pi % set.length];
+      ci += deleting ? -1 : 1;
+      typed.textContent = word.slice(0, ci);
+      var delay = deleting ? 34 : 62;
+      if (!deleting && ci === word.length) { delay = 1900; deleting = true; }
+      else if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % set.length; delay = 320; }
+      timer = setTimeout(type, delay);
+    }
+    function restartTyping() { clearTimeout(timer); ci = 0; deleting = false; type(); }
+
+    /* --- Sprachumschalter umhuellen, statt ersetzen --- */
+    if (typeof window.setLang === 'function') {
+      var original = window.setLang;
+      window.setLang = function (lang) {
+        original(lang);
+        animateCounters();
+        restartTyping();
+      };
+    }
+    animateCounters();
+    restartTyping();
+
+    /* --- Netzwerk-Konstellation --- */
+    var cv = document.getElementById('constellation');
+    if (cv && cv.getContext) {
+      var ctx = cv.getContext('2d');
+      var hero = document.querySelector('.hero');
+      var mouse = { x: -9999, y: -9999 };
+      var nodes = [], W = 0, H = 0, running = true;
+
+      function resize() {
+        var r = cv.getBoundingClientRect();
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = r.width; H = r.height;
+        cv.width = W * dpr; cv.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        var count = Math.min(Math.round((W * H) / 15000), 90);
+        nodes = [];
+        for (var i = 0; i < count; i++) {
+          nodes.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+            r: Math.random() * 1.7 + 0.9
+          });
+        }
+      }
+
+      function draw() {
+        if (!running) return;
+        ctx.clearRect(0, 0, W, H);
+        var i, j, n, a, b, dx, dy, d2;
+        for (i = 0; i < nodes.length; i++) {
+          n = nodes[i];
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+          dx = n.x - mouse.x; dy = n.y - mouse.y; d2 = dx * dx + dy * dy;
+          if (d2 < 14000 && d2 > 0.5) {
+            var f = (1 - d2 / 14000) * 0.55, d = Math.sqrt(d2);
+            n.x += (dx / d) * f; n.y += (dy / d) * f;
+          }
+        }
+        for (i = 0; i < nodes.length; i++) {
+          for (j = i + 1; j < nodes.length; j++) {
+            a = nodes[i]; b = nodes[j];
+            dx = a.x - b.x; dy = a.y - b.y; d2 = dx * dx + dy * dy;
+            if (d2 > 20000) continue;
+            ctx.strokeStyle = 'rgba(96,165,250,' + ((1 - d2 / 20000) * 0.34).toFixed(3) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        for (i = 0; i < nodes.length; i++) {
+          n = nodes[i];
+          var near = Math.abs(n.x - mouse.x) < 130 && Math.abs(n.y - mouse.y) < 130;
+          ctx.fillStyle = near ? 'rgba(34,197,94,0.85)' : 'rgba(147,197,253,0.62)';
+          ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      requestAnimationFrame(draw);
+
+      var rt = null;
+      window.addEventListener('resize', function () {
+        clearTimeout(rt);
+        rt = setTimeout(resize, 150);
+      });
+
+      /* Animation anhalten, wenn der Hero nicht sichtbar ist (spart Akku) */
+      new IntersectionObserver(function (entries) {
+        var vis = entries[0].isIntersecting;
+        if (vis && !running) { running = true; requestAnimationFrame(draw); }
+        else if (!vis) { running = false; }
+      }, { threshold: 0 }).observe(hero);
+
+      hero.addEventListener('mousemove', function (e) {
+        var r = cv.getBoundingClientRect();
+        mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+      });
+      hero.addEventListener('mouseleave', function () { mouse.x = mouse.y = -9999; });
+    }
+
+    /* --- Cursor-Glow auf der Profilkarte --- */
+    var card = document.querySelector('.profile-card');
+    if (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    }
+  })();
   </script>
 </body>
 </html>
