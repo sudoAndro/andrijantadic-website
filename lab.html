@@ -488,6 +488,89 @@
       .hero { padding: 3rem 0 2rem; }
       .architecture-card { padding: 0.75rem; }
     }
+
+    /* ===================== ANIMATIONEN ===================== */
+    .hero { position: relative; }
+    .hero > .container { position: relative; z-index: 2; }
+    #constellation {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    body.anim #constellation { opacity: 1; }
+
+    .termline {
+      display: inline-block; text-align: left;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 1rem; color: #bbf7d0;
+      margin: 0 auto 1.6rem; min-height: 1.6em;
+      max-width: 100%; word-break: break-word;
+    }
+    .termline .prompt { color: var(--accent); }
+    .caret {
+      display: inline-block; width: 9px; height: 1.05em;
+      vertical-align: -0.18em; background: var(--accent-2);
+      margin-left: 3px; opacity: 0;
+    }
+    body.anim .caret { opacity: 1; animation: blink 1.05s step-end infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* Scroll-Reveal */
+    body.anim .reveal {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity 720ms cubic-bezier(.22,.8,.28,1),
+                  transform 720ms cubic-bezier(.22,.8,.28,1);
+    }
+    body.anim .reveal.in { opacity: 1; transform: none; }
+
+    /* Hover-Effekte */
+    body.anim .layer-card,
+    body.anim .feature,
+    body.anim .lesson-card { transition: 260ms ease; }
+
+    body.anim .layer-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 18px 40px rgba(2, 8, 20, 0.5);
+    }
+    body.anim .feature:hover {
+      transform: translateY(-5px);
+      border-color: rgba(96, 165, 250, 0.38);
+      box-shadow: 0 18px 40px rgba(2, 8, 20, 0.5);
+    }
+    body.anim .lesson-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(96, 165, 250, 0.36);
+    }
+
+    /* Pills gestaffelt einblenden */
+    body.anim .pill { opacity: 0; transform: translateY(8px) scale(0.94); transition: 200ms ease; }
+    body.anim .in .pill { opacity: 1; transform: none; }
+    body.anim .pill:hover { transform: translateY(-2px); }
+
+    /* Buttons */
+    body.anim .btn:hover { transform: translateY(-2px); }
+    body.anim .btn-primary { position: relative; overflow: hidden; }
+    body.anim .btn-primary::after {
+      content: ""; position: absolute; top: 0; left: -120%;
+      width: 60%; height: 100%; transform: skewX(-18deg);
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.28), transparent);
+    }
+    body.anim .btn-primary:hover::after { animation: sweep 720ms ease; }
+    @keyframes sweep { to { left: 130%; } }
+
+    @media (max-width: 760px) {
+      .termline { font-size: 0.86rem; }
+      body.anim .lesson-card:hover { transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body.anim .reveal { opacity: 1; transform: none; }
+      body.anim .pill { opacity: 1; transform: none; }
+      body.anim .caret { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -519,12 +602,14 @@
 
   <!-- ==================== HERO ==================== -->
   <section class="hero">
+    <canvas id="constellation" aria-hidden="true"></canvas>
     <div class="container">
       <span class="label" data-i18n="hero-label">🛡️ My Cybersecurity Lab</span>
       <h1>
         <span data-i18n="hero-title-1">Defense in depth,</span><br/>
         <span class="accent" data-i18n="hero-title-2">built from scratch.</span>
       </h1>
+      <p class="termline"><span class="prompt">andro@lab:~$</span> <span id="typed"></span><span class="caret"></span></p>
       <p data-i18n="hero-description">
         A multi-layer cybersecurity homelab combining OPNsense, NordVPN, PiHole, Tailscale, and Vaultwarden.
         From CNC machinist to cybersecurity engineer — this is my journey, documented in code and configs.
@@ -543,7 +628,7 @@
   <!-- ==================== ARCHITECTURE ==================== -->
   <section id="architecture">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <span class="label" data-i18n="arch-label">Architecture</span>
         <h2 data-i18n="arch-title">Six layers of defense</h2>
         <p data-i18n="arch-description">
@@ -552,37 +637,37 @@
         </p>
       </div>
 
-      <div class="architecture-card">
+      <div class="architecture-card reveal">
         <img src="/diagrams/architecture.svg" alt="Cybersecurity lab architecture diagram"/>
       </div>
 
       <div class="layers-grid">
-        <div class="layer-card">
+        <div class="layer-card reveal">
           <span class="num">1</span>
           <h3>NordVPN</h3>
           <p data-i18n="layer-1-desc">Hides home IP, encrypts traffic to the internet via WireGuard tunnel.</p>
         </div>
-        <div class="layer-card">
+        <div class="layer-card reveal">
           <span class="num">2</span>
           <h3>OPNsense</h3>
           <p data-i18n="layer-2-desc">Killswitch, stateful filtering, network segmentation. Configured by hand.</p>
         </div>
-        <div class="layer-card">
+        <div class="layer-card reveal">
           <span class="num">3</span>
           <h3>PiHole</h3>
           <p data-i18n="layer-3-desc">DNS-level ad-blocking, tracker blocking, malware domain filtering.</p>
         </div>
-        <div class="layer-card">
+        <div class="layer-card reveal">
           <span class="num">4</span>
           <h3>Tailscale</h3>
           <p data-i18n="layer-4-desc">Zero-trust mesh VPN. Devices identify cryptographically — no shared passwords.</p>
         </div>
-        <div class="layer-card">
+        <div class="layer-card reveal">
           <span class="num">5</span>
           <h3>HTTPS + Crowdsec</h3>
           <p data-i18n="layer-5-desc">Application-layer TLS encryption with brute-force protection.</p>
         </div>
-        <div class="layer-card">
+        <div class="layer-card reveal">
           <span class="num">6</span>
           <h3>VPNNET Segment</h3>
           <p data-i18n="layer-6-desc">Dedicated VPN-routed network: join the WiFi and 100% of traffic exits through NordVPN — kill switch enforced, no apps needed.</p>
@@ -594,29 +679,29 @@
   <!-- ==================== FEATURES ==================== -->
   <section id="features">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <span class="label" data-i18n="features-label">Key features</span>
         <h2 data-i18n="features-title">What this lab actually does</h2>
         <p data-i18n="features-description">Not theory — working infrastructure I use every day.</p>
       </div>
 
       <div class="features-grid">
-        <div class="feature">
+        <div class="feature reveal">
           <div class="icon">🛡️</div>
           <h3 data-i18n="feature-1-title">Privacy by design</h3>
           <p data-i18n="feature-1-desc">Dedicated VPN network (VPNNET): every device in it routes 100% through NordVPN. Killswitch prevents leaks. DNS filtered through PiHole — only port 53 leaves the segment.</p>
         </div>
-        <div class="feature">
+        <div class="feature reveal">
           <div class="icon">🌍</div>
           <h3 data-i18n="feature-2-title">Secure remote access</h3>
           <p data-i18n="feature-2-desc">Tailscale mesh: phone and laptop reach lab from anywhere. Subnet routing for full LAN access.</p>
         </div>
-        <div class="feature">
+        <div class="feature reveal">
           <div class="icon">🔒</div>
           <h3 data-i18n="feature-3-title">Hardened authentication</h3>
           <p data-i18n="feature-3-desc">Diceware master passwords (80+ bits entropy). TOTP 2FA. Argon2-hashed admin tokens.</p>
         </div>
-        <div class="feature">
+        <div class="feature reveal">
           <div class="icon">📦</div>
           <h3 data-i18n="feature-4-title">Production-grade ops</h3>
           <p data-i18n="feature-4-desc">Snapshot-based recovery. Volume persistence. Service isolation. Automatic restarts.</p>
@@ -628,13 +713,13 @@
   <!-- ==================== TECH STACK ==================== -->
   <section id="stack">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <span class="label" data-i18n="stack-label">Tech Stack</span>
         <h2 data-i18n="stack-title">Tools and technologies</h2>
         <p data-i18n="stack-description">The components I configured, broke, and rebuilt to make this work.</p>
       </div>
 
-      <div class="tech-group">
+      <div class="tech-group reveal">
         <h3 data-i18n="stack-group-1">Infrastructure</h3>
         <div class="tech-pills">
           <span class="pill accent">Proxmox VE</span>
@@ -643,7 +728,7 @@
         </div>
       </div>
 
-      <div class="tech-group">
+      <div class="tech-group reveal">
         <h3 data-i18n="stack-group-2">Networking</h3>
         <div class="tech-pills">
           <span class="pill green">OPNsense</span>
@@ -656,7 +741,7 @@
         </div>
       </div>
 
-      <div class="tech-group">
+      <div class="tech-group reveal">
         <h3 data-i18n="stack-group-3">Services</h3>
         <div class="tech-pills">
           <span class="pill amber">Vaultwarden</span>
@@ -665,7 +750,7 @@
         </div>
       </div>
 
-      <div class="tech-group">
+      <div class="tech-group reveal">
         <h3 data-i18n="stack-group-4">Diagnostic tools</h3>
         <div class="tech-pills">
           <span class="pill">tcpdump</span>
@@ -682,7 +767,7 @@
   <!-- ==================== LESSONS ==================== -->
   <section id="lessons">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head reveal">
         <span class="label" data-i18n="lessons-label">Lessons Learned</span>
         <h2 data-i18n="lessons-title">What broke, and why it matters</h2>
         <p data-i18n="lessons-description">
@@ -691,39 +776,39 @@
       </div>
 
       <div class="lessons-grid">
-        <div class="lesson-card">
+        <div class="reveal lesson-card">
           <h4 data-i18n="lesson-1-title">🔥 OPNsense rebuilt three times</h4>
           <p data-i18n="lesson-1-desc">Routing through a VPN tunnel requires firewall-based gateways, not changing the default route. Took three full rebuilds to learn this.</p>
         </div>
-        <div class="lesson-card green">
+        <div class="reveal lesson-card green">
           <h4 data-i18n="lesson-2-title">🌐 The Tailscale SNAT trick</h4>
           <p data-i18n="lesson-2-desc">Exit-node packets were rewritten before reaching firewall rules. Hours of tcpdump debugging led to one checkbox: "Disable SNAT".</p>
         </div>
-        <div class="lesson-card amber">
+        <div class="reveal lesson-card amber">
           <h4 data-i18n="lesson-3-title">🏠 Independence for critical infra</h4>
           <p data-i18n="lesson-3-desc">Proxmox host must not depend on PiHole VM for DNS. A circular dependency at boot can ruin your day.</p>
         </div>
-        <div class="lesson-card red">
+        <div class="reveal lesson-card red">
           <h4 data-i18n="lesson-4-title">⚠️ Always check before removing kernels</h4>
           <p data-i18n="lesson-4-desc">`uname -r` before `apt autoremove`. Removing the running kernel is a one-way trip to an unbootable system.</p>
         </div>
-        <div class="lesson-card">
+        <div class="reveal lesson-card">
           <h4 data-i18n="lesson-5-title">📋 WARN ≠ ERROR</h4>
           <p data-i18n="lesson-5-desc">Caddy's "Caddyfile not formatted" looks scary. It's purely cosmetic. Read log levels carefully before panicking.</p>
         </div>
-        <div class="lesson-card green">
+        <div class="reveal lesson-card green">
           <h4 data-i18n="lesson-6-title">📸 Snapshots saved me 15 times</h4>
           <p data-i18n="lesson-6-desc">Every nontrivial change got a labeled, dated Proxmox snapshot. Storage is cheap; debugging time is expensive.</p>
         </div>
-        <div class="lesson-card amber">
+        <div class="reveal lesson-card amber">
           <h4 data-i18n="lesson-7-title">💾 "Save" is not "Apply"</h4>
           <p data-i18n="lesson-7-desc">Firewall rules were configured perfectly — and inactive. OPNsense stages changes until you hit Apply. 20 minutes of debugging a config that was already right.</p>
         </div>
-        <div class="lesson-card">
+        <div class="reveal lesson-card">
           <h4 data-i18n="lesson-8-title">🕳️ DNS takes its own path</h4>
           <p data-i18n="lesson-8-desc">Traffic in the tunnel ≠ DNS in the tunnel. The leak test showed my real IP while every connection was safely tunneled. Fix: DHCP points at PiHole, firewall allows only port 53.</p>
         </div>
-        <div class="lesson-card red">
+        <div class="reveal lesson-card red">
           <h4 data-i18n="lesson-9-title">🛑 A kill switch needs a kill test</h4>
           <p data-i18n="lesson-9-desc">When a VPN gateway went down, traffic silently fell back to WAN — real IP exposed. One hidden setting ("Skip rules when gateway is down") made the kill switch actually kill. Trust the test, not the config.</p>
         </div>
@@ -740,7 +825,7 @@
   <!-- ==================== CTA ==================== -->
   <section id="cta">
     <div class="container">
-      <div class="cta-block">
+      <div class="cta-block reveal">
         <h2 data-i18n="cta-title">Want the full story?</h2>
         <p data-i18n="cta-description">
           Detailed setup guides, anonymized configs, and architecture deep-dives — all on GitHub.
@@ -976,6 +1061,142 @@
       }
       setLang(savedLang);
     })();
+  </script>
+
+  <!-- ==================== ANIMATIONEN ==================== -->
+  <script>
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.body.classList.add('anim');
+
+    /* --- Scroll-Reveal --- */
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        e.target.querySelectorAll('.pill').forEach(function (pill, i) {
+          pill.style.transitionDelay = (i * 45) + 'ms';
+        });
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    /* --- Tippeffekt --- */
+    var phrases = {
+      de: ['systemctl status defense.service', 'opnsense · pihole · tailscale · crowdsec',
+           '6 layers · defense in depth', 'ziel: menschen schützen'],
+      en: ['systemctl status defense.service', 'opnsense · pihole · tailscale · crowdsec',
+           '6 layers · defense in depth', 'goal: protecting people']
+    };
+    var typed = document.getElementById('typed');
+    var pi = 0, ci = 0, deleting = false, timer = null;
+
+    function type() {
+      if (!typed) return;
+      var set = phrases[document.documentElement.lang.indexOf('en') === 0 ? 'en' : 'de'];
+      var word = set[pi % set.length];
+      ci += deleting ? -1 : 1;
+      typed.textContent = word.slice(0, ci);
+      var delay = deleting ? 34 : 62;
+      if (!deleting && ci === word.length) { delay = 1900; deleting = true; }
+      else if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % set.length; delay = 320; }
+      timer = setTimeout(type, delay);
+    }
+    function restartTyping() { clearTimeout(timer); ci = 0; deleting = false; type(); }
+
+    /* --- Sprachumschalter umhuellen, statt ersetzen --- */
+    if (typeof window.setLang === 'function') {
+      var original = window.setLang;
+      window.setLang = function (lang) {
+        original(lang);
+        restartTyping();
+      };
+    }
+    restartTyping();
+
+    /* --- Netzwerk-Konstellation --- */
+    var cv = document.getElementById('constellation');
+    if (cv && cv.getContext) {
+      var ctx = cv.getContext('2d');
+      var hero = document.querySelector('.hero');
+      var mouse = { x: -9999, y: -9999 };
+      var nodes = [], W = 0, H = 0, running = true;
+
+      function resize() {
+        var r = cv.getBoundingClientRect();
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = r.width; H = r.height;
+        cv.width = W * dpr; cv.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        var count = Math.min(Math.round((W * H) / 15000), 90);
+        nodes = [];
+        for (var i = 0; i < count; i++) {
+          nodes.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+            r: Math.random() * 1.7 + 0.9
+          });
+        }
+      }
+
+      function draw() {
+        if (!running) return;
+        ctx.clearRect(0, 0, W, H);
+        var i, j, n, a, b, dx, dy, d2;
+        for (i = 0; i < nodes.length; i++) {
+          n = nodes[i];
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+          dx = n.x - mouse.x; dy = n.y - mouse.y; d2 = dx * dx + dy * dy;
+          if (d2 < 14000 && d2 > 0.5) {
+            var f = (1 - d2 / 14000) * 0.55, d = Math.sqrt(d2);
+            n.x += (dx / d) * f; n.y += (dy / d) * f;
+          }
+        }
+        for (i = 0; i < nodes.length; i++) {
+          for (j = i + 1; j < nodes.length; j++) {
+            a = nodes[i]; b = nodes[j];
+            dx = a.x - b.x; dy = a.y - b.y; d2 = dx * dx + dy * dy;
+            if (d2 > 20000) continue;
+            ctx.strokeStyle = 'rgba(96,165,250,' + ((1 - d2 / 20000) * 0.34).toFixed(3) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        for (i = 0; i < nodes.length; i++) {
+          n = nodes[i];
+          var near = Math.abs(n.x - mouse.x) < 130 && Math.abs(n.y - mouse.y) < 130;
+          ctx.fillStyle = near ? 'rgba(34,197,94,0.85)' : 'rgba(147,197,253,0.62)';
+          ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      requestAnimationFrame(draw);
+
+      var rt = null;
+      window.addEventListener('resize', function () {
+        clearTimeout(rt);
+        rt = setTimeout(resize, 150);
+      });
+
+      /* Animation anhalten, wenn der Hero nicht sichtbar ist (spart Akku) */
+      new IntersectionObserver(function (entries) {
+        var vis = entries[0].isIntersecting;
+        if (vis && !running) { running = true; requestAnimationFrame(draw); }
+        else if (!vis) { running = false; }
+      }, { threshold: 0 }).observe(hero);
+
+      hero.addEventListener('mousemove', function (e) {
+        var r = cv.getBoundingClientRect();
+        mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+      });
+      hero.addEventListener('mouseleave', function () { mouse.x = mouse.y = -9999; });
+    }
+  })();
   </script>
 
 </body>
