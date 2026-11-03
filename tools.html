@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Andrijan Tadic – What every website knows about you: IP address, location, browser, device and fingerprint, read live in your browser. Nothing is stored." />
+  <meta name="theme-color" content="#0f172a" />
+  <title>What websites know about you | Andrijan Tadic</title>
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: rgba(15, 23, 42, 0.72);
+      --panel-solid: #0f172a;
+      --panel-2: #111c31;
+      --line: rgba(148, 163, 184, 0.18);
+      --text: #e5eefc;
+      --muted: #9fb0c8;
+      --accent: #60a5fa;
+      --accent-2: #22c55e;
+      --accent-3: #f59e0b;
+      --accent-danger: #ef4444;
+      --white: #ffffff;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.10), transparent 24%),
+        linear-gradient(180deg, #07101b 0%, #0b1324 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    /* ==================== NAV ==================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 17, 31, 0.68);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      color: var(--white);
+      font-size: 0.96rem;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* Language Toggle */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.4rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+
+    .lang-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      opacity: 0.5;
+      filter: grayscale(70%);
+    }
+
+    .lang-btn:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+      background: rgba(96, 165, 250, 0.15);
+    }
+
+    .lang-btn.active {
+      opacity: 1;
+      filter: grayscale(0%);
+      background: rgba(96, 165, 250, 0.2);
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.4);
+    }
+
+    .cta-small {
+      padding: 0.85rem 1.15rem;
+      border-radius: 999px;
+      background: rgba(96, 165, 250, 0.12);
+      color: var(--white);
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      transition: all 0.2s;
+    }
+
+    .cta-small:hover {
+      background: rgba(96, 165, 250, 0.25);
+      transform: translateY(-1px);
+    }
+
+    /* ==================== HERO ==================== */
+    .hero {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+
+    .hero .label {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--accent-2);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+      margin: 0 0 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .accent {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      color: var(--white);
+      box-shadow: 0 8px 24px rgba(96, 165, 250, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(96, 165, 250, 0.35);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.7);
+      border-color: rgba(148, 163, 184, 0.35);
+    }
+
+    /* ==================== SECTIONS ==================== */
+    section { padding: 4rem 0; }
+
+    .section-head { margin-bottom: 2.5rem; }
+
+    .section-head .label {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin: 0 0 0.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 720px;
+    }
+
+    /* ==================== ARCHITECTURE ==================== */
+    .architecture-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(18px);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .architecture-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: calc(var(--radius) - 12px);
+    }
+
+    /* ==================== LAYERS GRID ==================== */
+    .layers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .layer-card {
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .layer-card:hover {
+      border-color: rgba(96, 165, 250, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .layer-card .num {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: rgba(96, 165, 250, 0.15);
+      color: var(--accent);
+    }
+
+    .layer-card h3 {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+      font-weight: 700;
+    }
+
+    .layer-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* ==================== TECH STACK ==================== */
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .pill {
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .pill:hover {
+      border-color: rgba(96, 165, 250, 0.4);
+      background: rgba(96, 165, 250, 0.08);
+    }
+
+    .pill.accent { color: var(--accent); border-color: rgba(96, 165, 250, 0.3); }
+    .pill.green { color: var(--accent-2); border-color: rgba(34, 197, 94, 0.3); }
+    .pill.amber { color: var(--accent-3); border-color: rgba(245, 158, 11, 0.3); }
+
+    .tech-group {
+      margin-bottom: 2rem;
+    }
+
+    .tech-group h3 {
+      margin: 0 0 0.8rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ==================== LESSONS ==================== */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .lesson-card {
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 1.4rem;
+    }
+
+    .lesson-card.green { border-left-color: var(--accent-2); }
+    .lesson-card.amber { border-left-color: var(--accent-3); }
+    .lesson-card.red   { border-left-color: var(--accent-danger); }
+
+    .lesson-card h4 {
+      margin: 0 0 0.5rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .lesson-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .lessons-link {
+      margin-top: 2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .lessons-link a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ==================== FEATURES ==================== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .feature {
+      padding: 1.5rem;
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .feature .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(96, 165, 250, 0.15);
+      display: grid;
+      place-items: center;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .feature h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* ==================== CTA BLOCK ==================== */
+    .cta-block {
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(34, 197, 94, 0.1));
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .cta-block h2 {
+      font-size: 1.8rem;
+      margin: 0 0 0.8rem;
+      font-weight: 700;
+    }
+
+    .cta-block p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      padding: 3rem 0;
+      border-top: 1px solid var(--line);
+      margin-top: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer a { color: var(--accent); }
+    .footer a:hover { color: var(--white); }
+
+    /* ==================== MOBILE ==================== */
+    @media (max-width: 720px) {
+      .nav-links a:not(.cta-small):not(.lang-btn) {
+        display: none;
+      }
+      section { padding: 3rem 0; }
+      .hero { padding: 3rem 0 2rem; }
+      .architecture-card { padding: 0.75rem; }
+    }
+
+    /* ===================== ANIMATIONEN ===================== */
+    .hero { position: relative; }
+    .hero > .container { position: relative; z-index: 2; }
+    #constellation {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    body.anim #constellation { opacity: 1; }
+
+    .termline {
+      display: inline-block; text-align: left;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 1rem; color: #bbf7d0;
+      margin: 0 auto 1.6rem; min-height: 1.6em;
+      max-width: 100%; word-break: break-word;
+    }
+    .termline .prompt { color: var(--accent); }
+    .caret {
+      display: inline-block; width: 9px; height: 1.05em;
+      vertical-align: -0.18em; background: var(--accent-2);
+      margin-left: 3px; opacity: 0;
+    }
+    body.anim .caret { opacity: 1; animation: blink 1.05s step-end infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* Scroll-Reveal */
+    body.anim .reveal {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity 720ms cubic-bezier(.22,.8,.28,1),
+                  transform 720ms cubic-bezier(.22,.8,.28,1);
+    }
+    body.anim .reveal.in { opacity: 1; transform: none; }
+
+    /* Hover-Effekte */
+    body.anim .layer-card,
+    body.anim .feature,
+    body.anim .lesson-card { transition: 260ms ease; }
+
+    body.anim .layer-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 18px 40px rgba(2, 8, 20, 0.5);
+    }
+    body.anim .feature:hover {
+      transform: translateY(-5px);
+      border-color: rgba(96, 165, 250, 0.38);
+      box-shadow: 0 18px 40px rgba(2, 8, 20, 0.5);
+    }
+    body.anim .lesson-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(96, 165, 250, 0.36);
+    }
+
+    /* Pills gestaffelt einblenden */
+    body.anim .pill { opacity: 0; transform: translateY(8px) scale(0.94); transition: 200ms ease; }
+    body.anim .in .pill { opacity: 1; transform: none; }
+    body.anim .pill:hover { transform: translateY(-2px); }
+
+    /* Buttons */
+    body.anim .btn:hover { transform: translateY(-2px); }
+    body.anim .btn-primary { position: relative; overflow: hidden; }
+    body.anim .btn-primary::after {
+      content: ""; position: absolute; top: 0; left: -120%;
+      width: 60%; height: 100%; transform: skewX(-18deg);
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.28), transparent);
+    }
+    body.anim .btn-primary:hover::after { animation: sweep 720ms ease; }
+    @keyframes sweep { to { left: 130%; } }
+
+    @media (max-width: 760px) {
+      .termline { font-size: 0.86rem; }
+      body.anim .lesson-card:hover { transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body.anim .reveal { opacity: 1; transform: none; }
+      body.anim .pill { opacity: 1; transform: none; }
+      body.anim .caret { animation: none; }
+    }
+
+    /* ==================== ÜBER DICH (tools.html) ==================== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .info-card {
+      min-width: 0;
+      padding: 1.4rem;
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    #net-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+    .info-card.wide { grid-column: 1 / -1; }
+
+    .info-card .k {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .info-card .k .ico { font-size: 1.05rem; }
+
+    .info-card .v {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 1.1rem;
+      color: var(--white);
+      word-break: break-word;
+    }
+
+    .info-card.wide .v { font-size: clamp(1.3rem, 4vw, 2.1rem); }
+
+    .info-card .v.locked {
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--accent-2);
+    }
+
+    .info-card .v.wait {
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .info-card .h {
+      margin-top: 0.3rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .ip-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .blur {
+      filter: blur(10px);
+      user-select: none;
+      transition: filter 0.25s;
+    }
+
+    .mini-btn {
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      background: rgba(96, 165, 250, 0.12);
+      color: var(--white);
+      font: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .mini-btn:hover { background: rgba(96, 165, 250, 0.25); }
+
+    .tag {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-family: inherit;
+      color: var(--accent);
+      background: rgba(96, 165, 250, 0.12);
+      border: 1px solid rgba(96, 165, 250, 0.25);
+    }
+
+    .fp-card {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.14), rgba(34, 197, 94, 0.08));
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+
+    .fp-hash {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: clamp(1.4rem, 6vw, 2.6rem);
+      letter-spacing: 0.08em;
+      color: var(--accent-2);
+      word-break: break-all;
+    }
+
+    .fp-meta {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .fp-note {
+      max-width: 640px;
+      margin: 1.2rem auto 0;
+      color: var(--text);
+    }
+
+    body.anim .info-card { transition: 260ms ease; }
+    body.anim .info-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96, 165, 250, 0.4);
+      box-shadow: 0 18px 40px rgba(2, 8, 20, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAV ==================== -->
+  <header class="topbar">
+    <div class="container">
+      <nav class="nav">
+        <a class="brand" href="/" aria-label="Home">
+          <span class="brand-mark">AT</span>
+          <span>Andrijan Tadic</span>
+        </a>
+        <div class="nav-links">
+          <a href="/#ueber-mich" data-i18n="nav-about">About</a>
+          <a href="/#berufsweg" data-i18n="nav-career">Career</a>
+          <a href="/#it-kompetenzen" data-i18n="nav-skills">IT Skills</a>
+          <a href="/lab.html">🛡️ Lab</a>
+          <a href="/tools.html" style="color: var(--white);" data-i18n="nav-tools">🔍 About you</a>
+
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en" onclick="setLang('en')" aria-label="English" title="English">🇬🇧</button>
+            <button class="lang-btn" data-lang="de" onclick="setLang('de')" aria-label="Deutsch" title="Deutsch">🇨🇭</button>
+          </div>
+
+          <a href="/#kontakt" class="cta-small" data-i18n="nav-contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <canvas id="constellation" aria-hidden="true"></canvas>
+    <div class="container">
+      <span class="label" data-i18n="hero-label">🔍 About you</span>
+      <h1>
+        <span data-i18n="hero-title-1">What every website</span><br/>
+        <span class="accent" data-i18n="hero-title-2">knows about you.</span>
+      </h1>
+      <p class="termline"><span class="prompt">andro@lab:~$</span> <span id="typed"></span><span class="caret"></span></p>
+      <p data-i18n="hero-description">
+        No login, no cookies, no tracking script. Just what your browser and your connection give away
+        automatically, on every visit, to every website. Everything below is read live in your browser –
+        nothing is stored or sent anywhere.
+      </p>
+      <div class="hero-buttons">
+        <a href="#scan" class="btn btn-primary" data-i18n="hero-btn-scan">Show my data ↓</a>
+        <a href="/lab.html" class="btn btn-ghost" data-i18n="hero-btn-lab">Back to the lab</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NETZWERK ==================== -->
+  <section id="scan">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label" data-i18n="net-label">Network</span>
+        <h2 data-i18n="net-title">Your connection</h2>
+        <p data-i18n="net-description">This is what the server sees the moment you connect – before the page has even loaded.</p>
+      </div>
+      <div class="info-grid reveal" id="net-grid"></div>
+    </div>
+  </section>
+
+  <!-- ==================== GERÄT ==================== -->
+  <section id="device">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label" data-i18n="dev-label">Device</span>
+        <h2 data-i18n="dev-title">Your browser and device</h2>
+        <p data-i18n="dev-description">Any website can read these values with a few lines of JavaScript. No permission prompt, no warning.</p>
+      </div>
+      <div class="info-grid reveal" id="dev-grid"></div>
+    </div>
+  </section>
+
+  <!-- ==================== FINGERABDRUCK ==================== -->
+  <section id="fingerprint">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label" data-i18n="fp-label">Fingerprint</span>
+        <h2 data-i18n="fp-title">Your browser fingerprint</h2>
+        <p data-i18n="fp-description">
+          Combine all the values above and run them through a hash function – the result is often unique enough
+          to recognize you again on your next visit. Even without cookies, even in a private window.
+        </p>
+      </div>
+      <div class="fp-card reveal">
+        <div class="fp-hash" id="fp-hash">···· ···· ···· ····</div>
+        <div class="fp-meta" id="fp-meta"></div>
+        <p class="fp-note" data-i18n="fp-note">
+          Reload the page: the fingerprint stays the same. Open it in another browser: it changes.
+          Real trackers use even more signals (canvas, fonts, audio) – this is the simple version.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SCHUTZ ==================== -->
+  <section id="protect">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label" data-i18n="tips-label">Protection</span>
+        <h2 data-i18n="tips-title">What you can do about it</h2>
+        <p data-i18n="tips-description">You can't become invisible – but you can make yourself a lot harder to track.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature reveal">
+          <div class="icon">🌍</div>
+          <h3 data-i18n="tip-1-title">Use a VPN</h3>
+          <p data-i18n="tip-1-desc">Hides your real IP address and location. But: your fingerprint stays the same – a VPN only protects the network layer.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="icon">🦊</div>
+          <h3 data-i18n="tip-2-title">Privacy browser</h3>
+          <p data-i18n="tip-2-desc">Firefox with strict tracking protection, Brave or the Tor Browser deliberately report generic values – so you look like many others.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="icon">🚫</div>
+          <h3 data-i18n="tip-3-title">Block trackers</h3>
+          <p data-i18n="tip-3-desc">uBlock Origin in the browser, Pi-hole for the whole network: if tracking scripts never load, they can't collect anything.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="icon">🔁</div>
+          <h3 data-i18n="tip-4-title">Stay aware</h3>
+          <p data-i18n="tip-4-desc">Come back here with your VPN on and off, or from your phone. Seeing the difference yourself is the best lesson.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <p data-i18n="footer-tagline">
+        This page stores nothing, sets no cookies and loads no external scripts.
+      </p>
+      <p>🐢 — <span data-i18n="footer-motto">slowly but surely</span></p>
+      <p style="margin-top: 1rem;">
+        <a href="/" data-i18n="footer-back">← Back to homepage</a>
+        &nbsp;·&nbsp;
+        <a href="/lab.html" data-i18n="footer-lab">🛡️ My Lab</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==================== TRANSLATIONS + SCAN ==================== -->
+  <script>
+    const translations = {
+      en: {
+        'nav-about': 'About',
+        'nav-career': 'Career',
+        'nav-skills': 'IT Skills',
+        'nav-tools': '🔍 About you',
+        'nav-contact': 'Contact',
+
+        'hero-label': '🔍 About you',
+        'hero-title-1': 'What every website',
+        'hero-title-2': 'knows about you.',
+        'hero-description': 'No login, no cookies, no tracking script. Just what your browser and your connection give away automatically, on every visit, to every website. Everything below is read live in your browser – nothing is stored or sent anywhere.',
+        'hero-btn-scan': 'Show my data ↓',
+        'hero-btn-lab': 'Back to the lab',
+
+        'net-label': 'Network',
+        'net-title': 'Your connection',
+        'net-description': 'This is what the server sees the moment you connect – before the page has even loaded.',
+        'dev-label': 'Device',
+        'dev-title': 'Your browser and device',
+        'dev-description': 'Any website can read these values with a few lines of JavaScript. No permission prompt, no warning.',
+        'fp-label': 'Fingerprint',
+        'fp-title': 'Your browser fingerprint',
+        'fp-description': 'Combine all the values above and run them through a hash function – the result is often unique enough to recognize you again on your next visit. Even without cookies, even in a private window.',
+        'fp-note': 'Reload the page: the fingerprint stays the same. Open it in another browser: it changes. Real trackers use even more signals (canvas, fonts, audio) – this is the simple version.',
+        'fp-based': 'Based on {n} values · SHA-256 · IP address not included',
+
+        'tips-label': 'Protection',
+        'tips-title': 'What you can do about it',
+        'tips-description': "You can't become invisible – but you can make yourself a lot harder to track.",
+        'tip-1-title': 'Use a VPN',
+        'tip-1-desc': 'Hides your real IP address and location. But: your fingerprint stays the same – a VPN only protects the network layer.',
+        'tip-2-title': 'Privacy browser',
+        'tip-2-desc': 'Firefox with strict tracking protection, Brave or the Tor Browser deliberately report generic values – so you look like many others.',
+        'tip-3-title': 'Block trackers',
+        'tip-3-desc': "uBlock Origin in the browser, Pi-hole for the whole network: if tracking scripts never load, they can't collect anything.",
+        'tip-4-title': 'Stay aware',
+        'tip-4-desc': 'Come back here with your VPN on and off, or from your phone. Seeing the difference yourself is the best lesson.',
+
+        'footer-tagline': 'This page stores nothing, sets no cookies and loads no external scripts.',
+        'footer-motto': 'slowly but surely',
+        'footer-back': '← Back to homepage',
+        'footer-lab': '🛡️ My Lab',
+
+        // Karten
+        'c-ip': 'IP address',
+        'h-ip': 'Your public address on the internet. It reveals your provider – and roughly your region. Blurred so you can share screenshots safely.',
+        'ip-show': 'Show',
+        'ip-hide': 'Hide',
+        'c-loc': 'Country',
+        'h-loc': 'Derived from your IP address. With a VPN you see the country of the VPN server here.',
+        'c-colo': 'Cloudflare data center',
+        'h-colo': 'The nearest server that answered you – named after the closest airport code.',
+        'c-proto': 'Protocol',
+        'h-proto': 'HTTP version and TLS encryption of your connection. TLS 1.3 is the current standard.',
+        'c-browser': 'Browser',
+        'h-browser': 'Sent with every single request in the User-Agent header.',
+        'c-os': 'Operating system',
+        'h-os': 'Also part of the User-Agent. Chromium browsers even reveal the exact version when asked.',
+        'c-lang': 'Languages',
+        'h-lang': 'Your preferred languages, in order. Rare combinations make you easier to recognize.',
+        'c-tz': 'Time zone',
+        'h-tz': 'Tip: with a VPN your IP shows another country – but the time zone still reveals where you really are.',
+        'c-screen': 'Screen',
+        'h-screen': 'Resolution, color depth and scaling – surprisingly individual.',
+        'c-hw': 'Hardware',
+        'h-hw': 'CPU cores and (rounded) memory. Helps to tell devices apart.',
+        'c-gpu': 'Graphics card',
+        'h-gpu': 'Read via WebGL. One of the strongest signals for fingerprinting.',
+        'c-touch': 'Touchscreen',
+        'h-touch': 'Phone, tablet or desktop?',
+        'c-net': 'Connection type',
+        'h-net': 'Estimated speed class of your connection (Chromium browsers only).',
+        'c-ref': 'Came from',
+        'h-ref': 'The previous page – sent along when you click a link.',
+        'c-pref': 'Settings',
+        'h-pref': 'Even whether you use dark mode is visible.',
+
+        'locked': '🔒 not revealed',
+        'loading': 'loading…',
+        'offline': 'Only available on the live site',
+        'unknown': 'unknown',
+        'yes': 'Yes',
+        'no': 'No',
+        'points': 'touch points',
+        'cores': 'cores',
+        'direct': 'Direct (typed in or bookmark)',
+        'dark': 'Dark mode',
+        'light': 'Light mode',
+        'on': 'on',
+        'off': 'off'
+      },
+      de: {
+        'nav-about': 'Über mich',
+        'nav-career': 'Berufsweg',
+        'nav-skills': 'IT-Kompetenzen',
+        'nav-tools': '🔍 Über dich',
+        'nav-contact': 'Kontakt',
+
+        'hero-label': '🔍 Über dich',
+        'hero-title-1': 'Was jede Webseite',
+        'hero-title-2': 'über dich weiss.',
+        'hero-description': 'Kein Login, keine Cookies, kein Tracking-Skript. Nur das, was dein Browser und deine Verbindung bei jedem Besuch automatisch jeder Webseite verraten. Alles hier unten wird live in deinem Browser ausgelesen – nichts wird gespeichert oder weitergeschickt.',
+        'hero-btn-scan': 'Meine Daten zeigen ↓',
+        'hero-btn-lab': 'Zurück zum Lab',
+
+        'net-label': 'Netzwerk',
+        'net-title': 'Deine Verbindung',
+        'net-description': 'Das sieht der Server in dem Moment, in dem du dich verbindest – noch bevor die Seite geladen ist.',
+        'dev-label': 'Gerät',
+        'dev-title': 'Dein Browser und dein Gerät',
+        'dev-description': 'Jede Webseite kann diese Werte mit ein paar Zeilen JavaScript auslesen. Ohne Nachfrage, ohne Warnung.',
+        'fp-label': 'Fingerabdruck',
+        'fp-title': 'Dein Browser-Fingerabdruck',
+        'fp-description': 'Kombiniert man alle Werte oben und jagt sie durch eine Hash-Funktion, ist das Ergebnis oft eindeutig genug, um dich beim nächsten Besuch wiederzuerkennen. Auch ohne Cookies, auch im privaten Fenster.',
+        'fp-note': 'Lade die Seite neu: Der Fingerabdruck bleibt gleich. Öffne sie in einem anderen Browser: Er ändert sich. Echte Tracker nutzen noch mehr Merkmale (Canvas, Schriften, Audio) – das hier ist die einfache Version.',
+        'fp-based': 'Aus {n} Werten · SHA-256 · ohne IP-Adresse',
+
+        'tips-label': 'Schutz',
+        'tips-title': 'Was du dagegen tun kannst',
+        'tips-description': 'Unsichtbar wirst du nie – aber du kannst es Trackern deutlich schwerer machen.',
+        'tip-1-title': 'VPN nutzen',
+        'tip-1-desc': 'Versteckt deine echte IP-Adresse und deinen Standort. Aber: Dein Fingerabdruck bleibt gleich – ein VPN schützt nur die Netzwerk-Ebene.',
+        'tip-2-title': 'Privacy-Browser',
+        'tip-2-desc': 'Firefox mit strengem Tracking-Schutz, Brave oder der Tor Browser melden absichtlich allgemeine Werte – so siehst du aus wie viele andere.',
+        'tip-3-title': 'Tracker blocken',
+        'tip-3-desc': 'uBlock Origin im Browser, Pi-hole fürs ganze Netzwerk: Was gar nicht erst lädt, kann auch nichts sammeln.',
+        'tip-4-title': 'Bewusst bleiben',
+        'tip-4-desc': 'Komm mit VPN an und aus oder vom Handy wieder hierher. Den Unterschied selbst zu sehen ist die beste Lektion.',
+
+        'footer-tagline': 'Diese Seite speichert nichts, setzt keine Cookies und lädt keine externen Skripte.',
+        'footer-motto': 'langsam aber sicher',
+        'footer-back': '← Zurück zur Startseite',
+        'footer-lab': '🛡️ Mein Lab',
+
+        // Karten
+        'c-ip': 'IP-Adresse',
+        'h-ip': 'Deine öffentliche Adresse im Internet. Sie verrät deinen Provider – und grob deine Region. Verschwommen, damit du gefahrlos Screenshots teilen kannst.',
+        'ip-show': 'Anzeigen',
+        'ip-hide': 'Verbergen',
+        'c-loc': 'Land',
+        'h-loc': 'Abgeleitet aus deiner IP-Adresse. Mit VPN siehst du hier das Land des VPN-Servers.',
+        'c-colo': 'Cloudflare-Rechenzentrum',
+        'h-colo': 'Der nächste Server, der dir geantwortet hat – benannt nach dem nächsten Flughafen-Code.',
+        'c-proto': 'Protokoll',
+        'h-proto': 'HTTP-Version und TLS-Verschlüsselung deiner Verbindung. TLS 1.3 ist der aktuelle Standard.',
+        'c-browser': 'Browser',
+        'h-browser': 'Wird bei jeder einzelnen Anfrage im User-Agent-Header mitgeschickt.',
+        'c-os': 'Betriebssystem',
+        'h-os': 'Ebenfalls Teil des User-Agents. Chromium-Browser verraten auf Nachfrage sogar die genaue Version.',
+        'c-lang': 'Sprachen',
+        'h-lang': 'Deine bevorzugten Sprachen, in Reihenfolge. Seltene Kombinationen machen dich leichter erkennbar.',
+        'c-tz': 'Zeitzone',
+        'h-tz': 'Tipp: Mit VPN zeigt die IP ein anderes Land – die Zeitzone verrät aber immer noch, wo du wirklich bist.',
+        'c-screen': 'Bildschirm',
+        'h-screen': 'Auflösung, Farbtiefe und Skalierung – überraschend individuell.',
+        'c-hw': 'Hardware',
+        'h-hw': 'CPU-Kerne und (gerundeter) Arbeitsspeicher. Hilft, Geräte auseinanderzuhalten.',
+        'c-gpu': 'Grafikkarte',
+        'h-gpu': 'Ausgelesen über WebGL. Eines der stärksten Merkmale für Fingerprinting.',
+        'c-touch': 'Touchscreen',
+        'h-touch': 'Handy, Tablet oder Desktop?',
+        'c-net': 'Verbindungstyp',
+        'h-net': 'Geschätzte Geschwindigkeitsklasse deiner Verbindung (nur Chromium-Browser).',
+        'c-ref': 'Gekommen von',
+        'h-ref': 'Die vorherige Seite – wird beim Klick auf einen Link mitgeschickt.',
+        'c-pref': 'Einstellungen',
+        'h-pref': 'Sogar ob du den Dark Mode nutzt, ist sichtbar.',
+
+        'locked': '🔒 nicht verraten',
+        'loading': 'lädt…',
+        'offline': 'Nur auf der Live-Seite verfügbar',
+        'unknown': 'unbekannt',
+        'yes': 'Ja',
+        'no': 'Nein',
+        'points': 'Touch-Punkte',
+        'cores': 'Kerne',
+        'direct': 'Direkt (eingetippt oder Lesezeichen)',
+        'dark': 'Dark Mode',
+        'light': 'Light Mode',
+        'on': 'an',
+        'off': 'aus'
+      }
+    };
+
+    var LANG = 'en';
+    function T(k) {
+      return (translations[LANG] && translations[LANG][k]) || translations.en[k] || k;
+    }
+
+    /* Werte, die von aussen kommen (User-Agent, Referrer), immer escapen -> kein XSS */
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    var state = { trace: null, traceFailed: false, ipVisible: false, osDetail: null, fp: null, fpCount: 0 };
+
+    /* ---------- 1) Cloudflare-Trace: das sieht der Server ---------- */
+    function loadTrace() {
+      fetch('/cdn-cgi/trace', { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error('no trace'); return r.text(); })
+        .then(function (txt) {
+          var o = {};
+          txt.trim().split('\n').forEach(function (line) {
+            var i = line.indexOf('=');
+            if (i > 0) o[line.slice(0, i)] = line.slice(i + 1).trim();
+          });
+          if (!o.ip) throw new Error('no ip');
+          state.trace = o;
+          render();
+        })
+        .catch(function () { state.traceFailed = true; render(); });
+    }
+
+    /* ---------- 2) Browser & Gerät: das verrät JavaScript ---------- */
+    function browserInfo() {
+      var ua = navigator.userAgent, m;
+      if ((m = ua.match(/Edg\/(\d+)/))) return 'Edge ' + m[1];
+      if ((m = ua.match(/OPR\/(\d+)/))) return 'Opera ' + m[1];
+      if ((m = ua.match(/Firefox\/(\d+)/))) return 'Firefox ' + m[1];
+      if ((m = ua.match(/Chrome\/(\d+)/))) return (navigator.brave ? 'Brave ' : 'Chrome ') + m[1];
+      if ((m = ua.match(/Version\/(\d+).*Safari/))) return 'Safari ' + m[1];
+      return null;
+    }
+
+    function osInfo() {
+      if (state.osDetail) return state.osDetail;
+      var ua = navigator.userAgent, m;
+      if (/Windows NT 10/.test(ua)) return 'Windows 10/11';
+      if ((m = ua.match(/Windows NT ([\d.]+)/))) return 'Windows NT ' + m[1];
+      if ((m = ua.match(/Android ([\d.]+)/))) return 'Android ' + m[1];
+      if ((m = ua.match(/(?:iPhone|iPad).*? OS (\d+)/))) return (/iPad/.test(ua) ? 'iPadOS ' : 'iOS ') + m[1];
+      if (/Mac OS X/.test(ua)) return 'macOS';
+      if (/CrOS/.test(ua)) return 'ChromeOS';
+      if (/Linux/.test(ua)) return 'Linux';
+      return null;
+    }
+
+    function gpuInfo() {
+      try {
+        var c = document.createElement('canvas');
+        var gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+        if (!gl) return null;
+        var ext = gl.getExtension('WEBGL_debug_renderer_info');
+        var s = String(ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER) || '');
+        if (!s) return null;
+        // "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 (0x00002504) Direct3D11 ...)" -> "NVIDIA GeForce RTX 3060"
+        s = s.replace(/^ANGLE \(/, '').replace(/\)$/, '');
+        var parts = s.split(', ');
+        if (parts.length >= 2) s = parts[1];
+        return s.replace(/\s*\(0x[0-9a-fA-F]+\)/, '').replace(/\s*Direct3D.*$/, '').trim() || null;
+      } catch (e) { return null; }
+    }
+
+    var dev = {
+      ua: navigator.userAgent,
+      langs: (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language]).join(', '),
+      tz: (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { return null; } })(),
+      screen: screen.width + ' × ' + screen.height,
+      depth: screen.colorDepth,
+      dpr: Math.round((window.devicePixelRatio || 1) * 100) / 100,
+      cores: navigator.hardwareConcurrency || null,
+      mem: navigator.deviceMemory || null,
+      gpu: gpuInfo(),
+      touch: navigator.maxTouchPoints || 0,
+      platform: navigator.platform || ''
+    };
+
+    /* Chromium: "Windows 10/11" genauer nachfragen (Client Hints) */
+    if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+      navigator.userAgentData.getHighEntropyValues(['platformVersion']).then(function (v) {
+        var p = navigator.userAgentData.platform;
+        var major = parseInt(String(v.platformVersion || '0').split('.')[0], 10);
+        if (p === 'Windows' && major >= 13) state.osDetail = 'Windows 11';
+        else if (p === 'Windows' && major > 0) state.osDetail = 'Windows 10';
+        render();
+      }).catch(function () {});
+    }
+
+    /* ---------- 3) Fingerabdruck ---------- */
+    function computeFingerprint() {
+      var vals = [dev.ua, dev.langs, dev.tz, dev.screen, dev.depth, dev.dpr, dev.cores, dev.mem, dev.gpu, dev.touch, dev.platform];
+      state.fpCount = vals.filter(function (v) { return v !== null && v !== '' && v !== undefined; }).length;
+      var src = vals.join('|');
+      function done(hex) { state.fp = hex.slice(0, 16).match(/.{4}/g).join(' '); render(); }
+      if (window.crypto && crypto.subtle && window.TextEncoder) {
+        crypto.subtle.digest('SHA-256', new TextEncoder().encode(src)).then(function (buf) {
+          done(Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join(''));
+        }).catch(function () { done(fallbackHash(src)); });
+      } else {
+        done(fallbackHash(src));
+      }
+    }
+    function fallbackHash(s) { // FNV-1a, falls crypto.subtle fehlt
+      var h1 = 0x811c9dc5, h2 = 0x01000193;
+      for (var i = 0; i < s.length; i++) {
+        h1 = Math.imul(h1 ^ s.charCodeAt(i), 16777619) >>> 0;
+        h2 = Math.imul(h2 ^ s.charCodeAt(i), 2246822519) >>> 0;
+      }
+      return (h1.toString(16).padStart(8, '0') + h2.toString(16).padStart(8, '0'));
+    }
+
+    /* ---------- Anzeige ---------- */
+    var COLO = {
+      ZRH: 'Zürich', GVA: 'Genève', FRA: 'Frankfurt', MUC: 'München', DUS: 'Düsseldorf', HAM: 'Hamburg',
+      BER: 'Berlin', TXL: 'Berlin', STR: 'Stuttgart', VIE: 'Wien', MXP: 'Milano', AMS: 'Amsterdam',
+      CDG: 'Paris', LHR: 'London', MAD: 'Madrid', WAW: 'Warszawa', PRG: 'Praha', ARN: 'Stockholm',
+      CPH: 'København', ZAG: 'Zagreb', BEG: 'Beograd', SJJ: 'Sarajevo', IAD: 'Ashburn', EWR: 'Newark',
+      LAX: 'Los Angeles', SIN: 'Singapore', NRT: 'Tokyo'
+    };
+
+    function flag(cc) {
+      if (!/^[A-Z]{2}$/.test(cc)) return '';
+      return String.fromCodePoint(0x1F1E6 + cc.charCodeAt(0) - 65, 0x1F1E6 + cc.charCodeAt(1) - 65) + ' ';
+    }
+    function countryName(cc) {
+      if (cc === 'T1') return 'Tor';
+      try { return new Intl.DisplayNames([LANG], { type: 'region' }).of(cc); } catch (e) { return cc; }
+    }
+
+    function card(icon, key, valueHtml, opts) {
+      opts = opts || {};
+      return '<div class="info-card' + (opts.wide ? ' wide' : '') + '">' +
+        '<div class="k"><span class="ico">' + icon + '</span>' + T('c-' + key) + '</div>' +
+        valueHtml +
+        '<div class="h">' + T('h-' + key) + '</div></div>';
+    }
+    function val(v) { return v === null || v === undefined || v === '' ? locked() : '<div class="v">' + esc(v) + '</div>'; }
+    function locked() { return '<div class="v locked">' + T('locked') + '</div>'; }
+    function traceVal(fn) {
+      if (state.trace) return fn(state.trace);
+      return '<div class="v wait">' + T(state.traceFailed ? 'offline' : 'loading') + '</div>';
+    }
+
+    window.toggleIp = function () { state.ipVisible = !state.ipVisible; render(); };
+
+    function render() {
+      var net = document.getElementById('net-grid');
+      var devGrid = document.getElementById('dev-grid');
+      if (!net || !devGrid) return;
+
+      net.innerHTML =
+        card('📡', 'ip', traceVal(function (t) {
+          return '<div class="ip-row"><span class="v' + (state.ipVisible ? '' : ' blur') + '">' + esc(t.ip) + '</span>' +
+            '<button class="mini-btn" type="button" onclick="toggleIp()">' + T(state.ipVisible ? 'ip-hide' : 'ip-show') + '</button>' +
+            '<span class="tag">' + (t.ip.indexOf(':') > -1 ? 'IPv6' : 'IPv4') + '</span></div>';
+        }), { wide: true }) +
+        card('📍', 'loc', traceVal(function (t) { return val(t.loc ? flag(t.loc) + countryName(t.loc) : null); })) +
+        card('🏢', 'colo', traceVal(function (t) { return val(t.colo ? t.colo + (COLO[t.colo] ? ' · ' + COLO[t.colo] : '') : null); })) +
+        card('🔐', 'proto', traceVal(function (t) { return val([t.http, t.tls].filter(Boolean).join(' · ')); }));
+
+      var conn = navigator.connection && navigator.connection.effectiveType
+        ? navigator.connection.effectiveType.toUpperCase() + (navigator.connection.downlink ? ' · ~' + navigator.connection.downlink + ' Mbit/s' : '')
+        : null;
+      var ref = null;
+      try { ref = document.referrer ? new URL(document.referrer).hostname : T('direct'); } catch (e) { ref = T('direct'); }
+      var time = new Date().toLocaleTimeString(LANG === 'de' ? 'de-CH' : 'en-GB', { hour: '2-digit', minute: '2-digit' });
+      var hw = [dev.cores ? dev.cores + ' ' + T('cores') : null, dev.mem ? (dev.mem >= 8 ? '8+' : dev.mem) + ' GB RAM' : null].filter(Boolean).join(' · ');
+      var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      devGrid.innerHTML =
+        card('🌐', 'browser', val(browserInfo() || T('unknown'))) +
+        card('💻', 'os', val(osInfo() || T('unknown'))) +
+        card('🗣️', 'lang', val(dev.langs)) +
+        card('🕒', 'tz', val(dev.tz ? dev.tz + ' · ' + time : null)) +
+        card('🖥️', 'screen', val(dev.screen + ' · ' + dev.depth + '-bit · ' + dev.dpr + '×')) +
+        card('⚙️', 'hw', val(hw)) +
+        card('🎮', 'gpu', val(dev.gpu)) +
+        card('👆', 'touch', val(dev.touch > 0 ? T('yes') + ' · ' + dev.touch + ' ' + T('points') : T('no'))) +
+        card('📶', 'net', val(conn)) +
+        card('↩️', 'ref', val(ref)) +
+        card('🎨', 'pref', val((dark ? T('dark') : T('light')) + ' · Cookies ' + T(navigator.cookieEnabled ? 'on' : 'off')));
+
+      if (state.fp) {
+        document.getElementById('fp-hash').textContent = state.fp;
+        document.getElementById('fp-meta').textContent = T('fp-based').replace('{n}', state.fpCount);
+      }
+    }
+
+    function setLang(lang) {
+      LANG = lang === 'de' ? 'de' : 'en';
+      document.documentElement.lang = LANG;
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (translations[LANG] && translations[LANG][key]) el.textContent = translations[LANG][key];
+      });
+
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === LANG);
+      });
+
+      try { localStorage.setItem('preferredLang', LANG); } catch (e) {}
+      render();
+    }
+
+    (function () {
+      var savedLang = 'en';
+      try { savedLang = localStorage.getItem('preferredLang') || 'en'; } catch (e) {}
+      setLang(savedLang);
+      loadTrace();
+      computeFingerprint();
+    })();
+  </script>
+
+  <!-- ==================== ANIMATIONEN ==================== -->
+  <script>
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.body.classList.add('anim');
+
+    /* --- Scroll-Reveal --- */
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        e.target.querySelectorAll('.pill').forEach(function (pill, i) {
+          pill.style.transitionDelay = (i * 45) + 'ms';
+        });
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    /* --- Tippeffekt --- */
+    var phrases = {
+      de: ['curl andrijantadic.ch/cdn-cgi/trace', 'navigator.userAgent', 'whoami',
+           'wissen = schutz'],
+      en: ['curl andrijantadic.ch/cdn-cgi/trace', 'navigator.userAgent', 'whoami',
+           'knowledge = protection']
+    };
+    var typed = document.getElementById('typed');
+    var pi = 0, ci = 0, deleting = false, timer = null;
+
+    function type() {
+      if (!typed) return;
+      var set = phrases[document.documentElement.lang.indexOf('en') === 0 ? 'en' : 'de'];
+      var word = set[pi % set.length];
+      ci += deleting ? -1 : 1;
+      typed.textContent = word.slice(0, ci);
+      var delay = deleting ? 34 : 62;
+      if (!deleting && ci === word.length) { delay = 1900; deleting = true; }
+      else if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % set.length; delay = 320; }
+      timer = setTimeout(type, delay);
+    }
+    function restartTyping() { clearTimeout(timer); ci = 0; deleting = false; type(); }
+
+    /* --- Sprachumschalter umhuellen, statt ersetzen --- */
+    if (typeof window.setLang === 'function') {
+      var original = window.setLang;
+      window.setLang = function (lang) {
+        original(lang);
+        restartTyping();
+      };
+    }
+    restartTyping();
+
+    /* --- Netzwerk-Konstellation --- */
+    var cv = document.getElementById('constellation');
+    if (cv && cv.getContext) {
+      var ctx = cv.getContext('2d');
+      var hero = document.querySelector('.hero');
+      var mouse = { x: -9999, y: -9999 };
+      var nodes = [], W = 0, H = 0, running = true;
+
+      function resize() {
+        var r = cv.getBoundingClientRect();
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = r.width; H = r.height;
+        cv.width = W * dpr; cv.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        var count = Math.min(Math.round((W * H) / 15000), 90);
+        nodes = [];
+        for (var i = 0; i < count; i++) {
+          nodes.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+            r: Math.random() * 1.7 + 0.9
+          });
+        }
+      }
+
+      function draw() {
+        if (!running) return;
+        ctx.clearRect(0, 0, W, H);
+        var i, j, n, a, b, dx, dy, d2;
+        for (i = 0; i < nodes.length; i++) {
+          n = nodes[i];
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+          dx = n.x - mouse.x; dy = n.y - mouse.y; d2 = dx * dx + dy * dy;
+          if (d2 < 14000 && d2 > 0.5) {
+            var f = (1 - d2 / 14000) * 0.55, d = Math.sqrt(d2);
+            n.x += (dx / d) * f; n.y += (dy / d) * f;
+          }
+        }
+        for (i = 0; i < nodes.length; i++) {
+          for (j = i + 1; j < nodes.length; j++) {
+            a = nodes[i]; b = nodes[j];
+            dx = a.x - b.x; dy = a.y - b.y; d2 = dx * dx + dy * dy;
+            if (d2 > 20000) continue;
+            ctx.strokeStyle = 'rgba(96,165,250,' + ((1 - d2 / 20000) * 0.34).toFixed(3) + ')';
+            ctx.lineWidth = 0.7;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        for (i = 0; i < nodes.length; i++) {
+          n = nodes[i];
+          var near = Math.abs(n.x - mouse.x) < 130 && Math.abs(n.y - mouse.y) < 130;
+          ctx.fillStyle = near ? 'rgba(34,197,94,0.85)' : 'rgba(147,197,253,0.62)';
+          ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      requestAnimationFrame(draw);
+
+      var rt = null;
+      window.addEventListener('resize', function () {
+        clearTimeout(rt);
+        rt = setTimeout(resize, 150);
+      });
+
+      /* Animation anhalten, wenn der Hero nicht sichtbar ist (spart Akku) */
+      new IntersectionObserver(function (entries) {
+        var vis = entries[0].isIntersecting;
+        if (vis && !running) { running = true; requestAnimationFrame(draw); }
+        else if (!vis) { running = false; }
+      }, { threshold: 0 }).observe(hero);
+
+      hero.addEventListener('mousemove', function (e) {
+        var r = cv.getBoundingClientRect();
+        mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+      });
+      hero.addEventListener('mouseleave', function () { mouse.x = mouse.y = -9999; });
+    }
+  })();
+  </script>
+
+</body>
+</html>
